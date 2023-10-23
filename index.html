@@ -3,11 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="CSS/login.css">
     <title>Document</title>
 </head>
 <body>
-    <canvas>
-</canvas>
-<script src="js/index.js"></script>
+    <div>
+        <div class="navbar"> 
+            <h2 class="logo"><a href="index.html">Nufa<span class="roz">Roz</span></a></h2>
+
+        
+        <div class="menu">
+            <ul>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Leaderboards</a></li>
+                <li><a href="#">Log in</a></li>
+            </ul>
+        </div>
+        </div>
+    <!--Main Container div-->
+    <div style= "position: relative;">
+        <!--Top Container-->
+        <div style = "position:absolute">
+            <!-- Player Health-->
+            <div style="background-color: yellow; height: 30px; width:300px"></div>
+            <!--Timer + score-->
+            <div style="background-color: green; height: 30px; width: 50px"></div>
+            <!--Difficulty bar-->
+            <div></div>
+
+        </div>
+    <canvas></canvas>
+
+    </div>
+    <script src="js/index.js"></script>
+    </div>
 </body>
 </html>

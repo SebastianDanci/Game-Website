@@ -2,8 +2,8 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 
-canvas.width = 1600
-canvas.height = 900
+canvas.width = 750
+canvas.height = 524
 
 const gravity= 0.4
 
@@ -14,6 +14,8 @@ class Sprite{
         this.position = position
         this.velocity = velocity
         this.color = color
+        this.reachedEdgeRight = false
+        this.reachedEdgeLeft = false
         this.width = 50
         this.height = 75
         this.isAttacking
@@ -41,6 +43,10 @@ class Sprite{
         if(this.position.y + this.height + this.velocity.y >=canvas.height)
             this.velocity.y = 0
         else this.velocity.y += gravity
+        if(this.position.x<=0)this.reachedEdgeLeft = true
+        else this.reachedEdgeLeft = false
+        if(this.position.x+this.width>=canvas.width)this.reachedEdgeRight = true
+        else this.reachedEdgeRight = false
     }
 
     attack(){
@@ -110,16 +116,16 @@ function animate(){
     helper.velocity.x = 0
     
     //player movement
-    if(keys.d.pressed && lastkeyp ==='d')player.velocity.x=1.5
-    else if(keys.a.pressed && lastkeyp === 'a')player.velocity.x=-1.5
+    if(keys.d.pressed && lastkeyp ==='d' && player.reachedEdgeRight == false)player.velocity.x=1.5
+    else if(keys.a.pressed && lastkeyp === 'a' && player.reachedEdgeLeft == false)player.velocity.x=-1.5
 
     //helper movement
     if(helper.velocity.y==0)keys.up.count=0
     if(keys.up.pressed == true && helper.velocity.y >= 0 && keys.up.count<2){
         helper.velocity.y =-12
         keys.up.count += 1}
-    if(keys.right.pressed && lastkeyh ==='right')helper.velocity.x=2 
-    else if(keys.left.pressed && lastkeyh === 'left')helper.velocity.x=-2
+    if(keys.right.pressed && lastkeyh ==='right'&& helper.reachedEdgeRight == false)helper.velocity.x=2 
+    else if(keys.left.pressed && lastkeyh === 'left' && helper.reachedEdgeLeft == false)helper.velocity.x=-2
 
     //detect collision
 
@@ -140,6 +146,7 @@ animate()
 
 window.addEventListener('keydown', (event) => {
     switch (event.key) {
+    
         case 'a':
             keys.a.pressed = true
             player.attackBox.facing = 'left'
