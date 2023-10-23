@@ -3,16 +3,26 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
 
 .background{
+    position: absolute;
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backrgounds/Ocean_8/6.png);
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_3/5.png);
     background-position: center;
     background-size: cover;
     height: 100vh;
     z-index: -1;
+}
+.container{
+
+    padding-top: 100px;
+    padding-bottom: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header{
@@ -41,24 +51,12 @@ z-index: 1;
     margin-top: 20px;
 
 }
-.content .logo a{
-    color: white;
-}
+
 .logo a:hover{
     color: rgb(255, 0, 191);
 }
 
-.content .logo {
-    font-size: 30px;
-    cursor: pointer;
-    font-family: cursive;
-    margin-bottom: 5px;
-}
 
-.content .logo a:hover{
-    color: rgb(255, 0, 191);
-
-}
 
 .logo a {
     text-decoration: none;

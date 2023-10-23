@@ -2,12 +2,21 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 
-canvas.width = 750
-canvas.height = 524
+canvas.width = 1280
+canvas.height = 720
 
 const gravity= 0.4
 
-c.fillRect(0, 0, canvas.width, canvas.height)
+const backgroundImage = new Image();
+
+// Set the source of the image
+backgroundImage.src = 'Images/Backgrounds/Ocean_3/5.png';
+
+// Ensure the image is loaded before drawing it
+backgroundImage.onload = function() {
+    // Draw the image on the canvas
+    c.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+};
 
 class Sprite{   
     constructor({position, velocity, color}){

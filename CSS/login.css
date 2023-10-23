@@ -9,7 +9,7 @@
 
 .background{
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backrgounds/Ocean_8/6.png);
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_6/5.png);
     background-position: center;
     background-size: cover;
     height: 100vh;
@@ -17,7 +17,7 @@
 }
 
 .header{
-position: fixed;
+position: absolute;
 top: 0;
 left: 0;
 width: 100%;
@@ -135,7 +135,7 @@ opacity: 0;
     transform: translate(-50%, -50%);
     width:  75%;
     height: 700px;
-    background: url(../Images/Backrgounds/Ocean_8/6.png) no-repeat;
+    background: url(../Images/Backgrounds/Ocean_6/5.png) no-repeat;
     background-size: cover;
     background-position: center;
     border-radius: 10;
