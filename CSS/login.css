@@ -293,6 +293,14 @@ top: -18%;
 right: 0;
 font-size: 19px;
 }
+.input-box .icon svg{
+fill: white;
+transition: .5s ease;
+}
+
+.input-box .icon svg:hover{
+    fill: rgb(255, 0, 191);
+}
 
 .forgot-remember{
     display: flex;
@@ -423,10 +431,10 @@ font-weight: 600px;
 
 .footer-links ul li a svg{
     fill:white;
-    transition: .5s, ease;
+    transition: .6s, ease;
 }
 
 .footer-links ul li a svg:hover{
     fill:rgb(255, 0, 191);
-    transform: scale(1.2);
+    transform: scale(1.3);
 }

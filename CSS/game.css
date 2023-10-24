@@ -17,7 +17,7 @@
     z-index: -1;
 }
 .container{
-
+    overflow: hidden;
     padding-top: 100px;
     padding-bottom: 10%;
     display: flex;
@@ -26,104 +26,121 @@
 }
 
 .header{
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-z-index: 1;
-}
-
-
-.navbar {
-    width: auto;
-    height: auto;
-    justify-content: space-between;
-    align-items: center;
-}
-.navbar .logo {
-    font-size: 40px;
-    float: left;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    margin-left: 30px;
-    margin-bottom: 5px;
-    margin-top: 20px;
-
-}
-
-.logo a:hover{
-    color: rgb(255, 0, 191);
-}
-
-
-
-.logo a {
-    text-decoration: none;
-    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    }
+    
+    
+    .navbar {
+        width: auto;
+        height: auto;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .navbar .logo {
+        font-size: 40px;
+        float: left;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: 30px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    
+    }
+    .content .logo a{
+        color: white;
+    }
+    .logo a:hover{
+        color: rgb(255, 0, 191);
+    }
+    
+    .content .logo {
+        font-size: 30px;
+        cursor: pointer;
+        font-family: cursive;
+        margin-bottom: 5px;
+    }
+    
+    .content .logo a:hover{
+        color: rgb(255, 0, 191);
+    
+    }
+    
+    .logo a {
+        text-decoration: none;
+        color: white;
+        transition: .3s ease;
+    }
+    
+    .roz {
+        color: rgb(255, 0, 191);
+    }
+    
+    .menu {
+        overflow:visible;
+        width: auto;
+        float: right;
+        margin-right: 30px;
+    }
+    
+    
+    .menu ul{
+        overflow:visible;
+        float: right;
+        display: flex;
+        padding-top: 30px;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14%;
+    }
+    
+    .menu ul li {
+        overflow:visible;
+        list-style: none;
+        margin-left: 60px;
+        font-size: 16px;
+    }
+    
+    .menu ul li a { 
+        overflow:visible;
+        position: relative;
+        white-space: nowrap;
+        text-decoration: none;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        transition: .3s ease;
+    }
+    
+    .menu ul li a:hover {
+        color: rgb(255, 0, 191);
+    }
+    
+    
+    .menu ul li a::after {
+        overflow:visible;
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    bottom: -6px;
+    background: rgb(255, 0, 191);
+    border-radius: 5px;
+    transform: translateY(10px);
     transition: .3s ease;
-}
-
-.roz {
-    color: rgb(255, 0, 191);
-}
-
-.menu {
-    width: auto;
-    float: right;
-    margin-right: 30px;
-}
-
-
-.menu ul{
-    float: right;
-    display: flex;
-    padding-top: 30px;
-    justify-content: center;
-    align-items: center;
-    margin-left: 14%;
-}
-
-.menu ul li {
-    list-style: none;
-    margin-left: 60px;
-    font-size: 16px;
-}
-
-.menu ul li a { 
-    position: relative;
-    white-space: nowrap;
-    text-decoration: none;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    transition: .3s ease;
-}
-
-.menu ul li a:hover {
-    color: rgb(255, 0, 191);
-}
-
-
-.menu ul li a::after {
-content: '';
-position: absolute;
-left: 0;
-width: 100%;
-height: 2px;
-bottom: -6px;
-background: rgb(255, 0, 191);
-border-radius: 5px;
-transform: translateY(10px);
-transition: .3s ease;
-opacity: 0;
-}
-
-
-.menu ul li a:hover::after {
-    transform: translateY(0px);
-    opacity: 1;
-}
+    opacity: 0;
+    }
+    
+    
+    .menu ul li a:hover::after {
+        transform: translateY(0px);
+        opacity: 1;
+    }
 
 
 
@@ -146,6 +163,7 @@ opacity: 0;
     align-items: center;
     justify-content: space-between;
 }
+
 .footer-help{
     display: flex;
     align-items: center;
@@ -168,6 +186,7 @@ opacity: 0;
     right: 0;
     margin-right: 30px;
 }
+
 .footer-links ul{
     float: right;
     display: flex;
@@ -194,10 +213,10 @@ opacity: 0;
 
 .footer-links ul li a svg{
     fill:white;
-    transition: .5s, ease;
+    transition: .6s, ease;
 }
 
 .footer-links ul li a svg:hover{
     fill:rgb(255, 0, 191);
-    transform: scale(1.2);
+    transform: scale(1.3);
 }

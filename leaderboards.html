@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="CSS/game.css">
+    <link rel="stylesheet" type="text/css" href="CSS/leaderboards.css">
     <title>Document</title>
 </head>
 <body>
@@ -14,6 +14,7 @@
         
         <div class="menu">
             <ul>
+                <li><a href="#">Register</a></li>
                 <li><a href="login.html">Log In</a></li>
                 <li><a href="#">Help</a></li>
                 <li><a href="leaderboards.html">Leaderboards</a></li>
@@ -25,25 +26,55 @@
 
         <div class="background"></div>
         <div class="container">
-<!--Main Container div-->
-<div style= "position: relative;" class ="">
-    <!--Top Container-->
-    <div style = "position:absolute">
-        <!-- Player Health-->
-        <div style="background-color: yellow; height: 30px; width:300px"></div>
-        <!--Timer + score-->
-        <div style="background-color: green; height: 30px; width: 50px"></div>
-        <!--Difficulty bar-->
-        <div></div>
-
-    </div>
-<canvas></canvas>
-
-</div>
+            <div class="leaderboard">
+                <h1>Leaderboard</h1>
+                <div class="top-three">
+                    <div class="placement two">
+                        <span class="position">2nd</span>
+                        <span class="name-score">Chang 11,762</span>
+                    </div>
+                    <div class="placement one">
+                        <span class="position">1st</span>
+                        <span class="name-score">Wymiscal 12,546</span>
+                    </div>
+                    <div class="placement three">
+                        <span class="position">3rd</span>
+                        <span class="name-score">Paknot 11,123</span>
+                    </div>
+                </div>
+                <div class="others">
+                    <div class="player-box one">
+                        <span class="position">Position</span>
+                        <span class="name">Name</span>
+                        <span class="score">Score</span>
+                    </div>
+                    <div class="player-box">
+                        <span class="position">4.</span>
+                        <span class="name">Monster</span>
+                        <span class="score">10,223</span>
+                    </div>
+                    <div class="player-box">
+                        <span class="position">5.</span>
+                        <span class="name">PizzaCutter</span>
+                        <span class="score">9,672</span>
+                    </div>
+                    <div class="player-box">
+                        <span class="position">6.</span>
+                        <span class="name">FazeRobs</span>
+                        <span class="score">9,000</span>
+                    </div>
+                    <div class="player-box">
+                        <span class="position">7.</span>
+                        <span class="name">Amumu</span>
+                        <span class="score">8,100</span>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     
     <script src="js/index.js"></script>
-    </div>
+    
     <div class="foooter">
 
         <div class="footer-help"> 
