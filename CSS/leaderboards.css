@@ -86,6 +86,7 @@ body {
     align-items: center;
     margin-left: 14%;
     padding-top: 7px;
+    margin-right: 15px;
 }
 
 .menu ul li {
@@ -267,38 +268,59 @@ body {
     background-color: rgba(0, 0, 0, 0.288);
     z-index: 2;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; 
 }
 
-.footer-help {
-    display: flex;
-    align-items: center;
-    float: left;
-    margin-top: 5px;
+
+.footer-left {
     margin-left: 30px;
     font-size: 8px;
-}
-
-.footer-help .logo {
     color: white;
     transition: 0.3s ease;
 }
 
-.footer-help .logo:hover {
+
+.footer-middle {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8%;
+    font-size: 8px;
+}
+
+.footer-middle .logo {
+    color: white;
+    transition: 0.3s, ease;
+}
+
+.footer-middle .logo:hover {
     color: rgb(255, 0, 191);
 }
 
-.footer-links {
-    position: absolute;
-    right: 0;
+
+.help-button {
+    text-decoration: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: .3s ease;
+    font-size: 13px;
+}
+
+.help-button:hover {
+    color: rgb(255, 0, 191);
+}
+
+
+.footer-right {
     margin-right: 30px;
 }
 
 .footer-links ul {
+    float: right;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 14%;
 }
 
 .footer-links ul li {
@@ -314,14 +336,15 @@ body {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    transition: 0.3s ease;
+    transition: .3s ease;
 }
-.footer-links ul li a svg{
-    fill:white;
+
+.footer-links ul li a svg {
+    fill: white;
     transition: .5s, ease;
 }
 
-.footer-links ul li a svg:hover{
-    fill:rgb(255, 0, 191);
+.footer-links ul li a svg:hover {
+    fill: rgb(255, 0, 191);
     transform: scale(1.2);
 }

@@ -85,12 +85,22 @@ z-index: 1;
     justify-content: center;
     align-items: center;
     margin-left: 14%;
+    margin-right: 15px;
 }
 
 .menu ul li {
     list-style: none;
     margin-left: 60px;
     font-size: 16px;
+}
+.menu ul li:nth-child(4) {
+    margin-left: 60px; 
+    transition: opacity 0.4s ease, z-index 0.4s ease;
+}
+
+.menu ul li:nth-child(5) {
+    margin-left: -60px; 
+    transition: opacity 0.4s ease, z-index 0.4s ease;
 }
 
 .menu ul li a { 
@@ -220,11 +230,11 @@ height: 100%;
     transition-delay: .6s;
 }
 .logbox.active .form-box.login{
-    transform: translateX(600px);
+    transform: translateX(1000px);
     transition-delay: 0s;
 }
 .logbox .form-box.register{
-    transform: translateX(600px);
+    transform: translateX(1000px);
     transition: transform 0.4s ease;
     transition-delay: 0s;
 }
@@ -372,7 +382,7 @@ font-weight: 600px;
     text-decoration: underline;
     color: rgb(255, 0, 191);
 }
-.foooter{
+.foooter {
     display: flex;
     position: fixed;
     height: 5vh;
@@ -381,36 +391,59 @@ font-weight: 600px;
     background-color: rgba(0, 0, 0, 0.288);
     z-index: 2;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; 
 }
-.footer-help{
-    display: flex;
-    align-items: center;
-    float: left;
-    margin-top:5px;
+
+
+.footer-left {
     margin-left: 30px;
     font-size: 8px;
+    color: white;
+    transition: 0.3s ease;
 }
-.footer-help .logo{
+
+
+.footer-middle {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8%;
+    font-size: 8px;
+}
+
+.footer-middle .logo {
     color: white;
     transition: 0.3s, ease;
 }
 
-.footer-help .logo:hover{
+.footer-middle .logo:hover {
     color: rgb(255, 0, 191);
 }
-.footer-links{
-    width: auto;
-    position: absolute;
-    right: 0;
+
+
+.help-button {
+    text-decoration: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: .3s ease;
+    font-size: 13px;
+}
+
+.help-button:hover {
+    color: rgb(255, 0, 191);
+}
+
+
+.footer-right {
     margin-right: 30px;
 }
-.footer-links ul{
+
+.footer-links ul {
     float: right;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 14%;
 }
 
 .footer-links ul li {
@@ -419,7 +452,7 @@ font-weight: 600px;
     font-size: 16px;
 }
 
-.footer-links ul li a { 
+.footer-links ul li a {
     position: relative;
     white-space: nowrap;
     text-decoration: none;
@@ -429,12 +462,12 @@ font-weight: 600px;
     transition: .3s ease;
 }
 
-.footer-links ul li a svg{
-    fill:white;
-    transition: .6s, ease;
+.footer-links ul li a svg {
+    fill: white;
+    transition: .5s, ease;
 }
 
-.footer-links ul li a svg:hover{
-    fill:rgb(255, 0, 191);
-    transform: scale(1.3);
+.footer-links ul li a svg:hover {
+    fill: rgb(255, 0, 191);
+    transform: scale(1.2);
 }
