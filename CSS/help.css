@@ -8,7 +8,7 @@
 
 .background{
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_8/6.png);
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_1/4.png);
     background-position: center;
     background-size: cover;
     height: 100vh;
@@ -127,16 +127,60 @@
     align-items: center;
     width: 75%;
     height: 700px;
-    background: url(../Images/Backgrounds/Ocean_5/5.png) center/cover;
+    background: url(../Images/Backgrounds/Ocean_1/4.png) center/cover;
     border-radius: 10px;
     margin-top: 10px;
 }
 
 
 
+.welcome-message {
+    text-align: center;
+    color: white;
+    margin: 20px;
+}
+
+.welcome-message h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.welcome-message p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.signup-button {
+    background-color: rgb(255, 0, 191);
+}
+
+.play-button {
+    background-color: transparent;
+}
+
+.button:hover {
+    background-color: rgb(255, 0, 191);
+    color: white;
+}
 
 
 
+/* Your existing CSS remains the same */
 
 
 

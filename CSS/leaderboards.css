@@ -176,11 +176,28 @@ body {
     font-size: 24px;
     font-weight: bold;
     color: white;
-    background-color: rgba(255, 255, 255, 0.2);
     border: 2px solid white;
     transition: 0.5s ease;
+    position: relative;
+}
+.medal-one, .medal-two, .medal-three {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
+
+.placement.one{
+    background-color: rgb(255, 215, 0, 0.3);
+}
+.placement.two{
+    background-color: rgba(166, 166, 166, 0.3);
+}
+
+.placement.three{
+    background: rgba(187, 115, 43, 0.3)
+}
 .placement:hover {
     background-color: rgb(255, 0, 191, 0.4);
 }
@@ -214,7 +231,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     border: 2px solid white;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -285,7 +302,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 8%;
+    margin-left: 6%;
     font-size: 8px;
 }
 
