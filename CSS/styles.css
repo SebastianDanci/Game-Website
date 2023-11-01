@@ -6,18 +6,9 @@
 }
 
 /* backgrounds for each page */
-.background{
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-    background-position: center;
-    background-size: cover;
-}
 .background.index{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz\ background.png);
-
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz1.png);
 }
-
 .background.help{
     background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz6.png);
 }
@@ -35,6 +26,8 @@
 .background.help,
 .background.game,
 .background.logreg{
+    width: 100%;
+    height: 100vh;
     z-index: -1;
     background-position: center;
     background-size: cover;
@@ -51,7 +44,6 @@
     height: 700px;
     background-size: cover;
     background-position: center;
-    border-radius: 10;
 }
 
 /* navigation bar and its elements */
@@ -62,14 +54,12 @@
     width: 100%;
     z-index: 1;
 }
-
 .navbar {
     padding-right:7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .navbar .logo,
 .content .logo {
     cursor: pointer;
@@ -78,38 +68,31 @@
     margin-left: 30px;
     margin-bottom: 5px;
 }
-
 .navbar .logo {
     margin-top: 20px;
     font-size: 40px;
     float: left;
 }
-
 .content .logo {
     font-size: 30px;
     font-family: cursive;
 }
-
 .logo a {
     text-decoration: none;
     color: white;
     transition: 0.3s ease;
 }
-
 .logo a:hover,
 .content .logo a:hover {
     color: rgb(255, 0, 191);
 }
-
 .roz {
     color: rgb(255, 0, 191);
 }
-
 .menu {
     float: right;
     margin-right: 50px;
 }
-
 .menu ul {
     display: flex;
     justify-content: center;
@@ -118,13 +101,11 @@
     padding-top: 7px;
     margin-right: 15px;
 }
-
 .menu ul li {
     list-style: none;
     margin-left: 60px;
     font-size: 16px;
 }
-
 .menu ul li a {
     position: relative;
     white-space: nowrap;
@@ -135,11 +116,9 @@
     transition: 0.3s ease;
     cursor: pointer;
 }
-
 .menu ul li a:hover {
     color: rgb(255, 0, 191);
 }
-
 .menu ul li a::after {
     content: '';
     position: absolute;
@@ -153,44 +132,37 @@
     transition: 0.3s ease;
     opacity: 0;
 }
-
 .menu ul li a:hover::after {
     transform: translateY(0);
     opacity: 1;
 }
 
-
 /* index page container and it's content */
 .container.index{
-    background: url(../Images/Backgrounds/roz\ background.png) center/cover;
-    border-radius: 10px;
+    background: url(../Images/Backgrounds/roz1.png) center/cover;
     padding-left: 10%;
     padding-right: 10%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
 .welcome-icon {
     display: flex;
     justify-content: center;
     padding-bottom: 20px;
     margin-bottom: 25px;
 }
-
 .welcome-icon img {
     width: 240px; 
     height: 135px; 
 }
-
 .buttons {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 25%;
     justify-content: space-evenly; 
     padding-top: 20px;
 }
-
 .welcome-message {
     display: flex;
     flex-direction: column;
@@ -199,36 +171,30 @@
     color: white;
     margin: 20px;
 }
-
 .welcome-message h1 {
     margin-bottom: 50px;
     font-size: 36px;
     line-height: 1.5; 
-    color: #ffffff;  
+    color: white;  
     padding: 10px;  
 }
-
 .welcome-message p {
     font-size: 20px;
-    font-weight: bold;
+    font-weight:bolder;
     margin-bottom: 10px;
     line-height: 1.5; 
-    color: #ffffff;  
+    color: white;  
     padding: 7px;  
 }
-
 .buttons .button{
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding-right: 10%;
 }
-
 .buttons .button .btn{
     padding: 10px 20px; 
     border: none;
     border-radius: 5px; 
-    background-color: #ff4081; 
     color: white;
     transition: background-color 0.3s;
     width: 200px;
@@ -240,18 +206,15 @@
     font-weight: bold;
     transition: 0.5s ease;
 }
-
 .buttons .button .btn:hover{
     background: white;
     color: rgb(255, 0, 191);
 }
-
 .container.index span {
     position: relative;
     transition: 0.5s ease;
     display: inline-block; 
 }
-
 .container.index span::before {
     content: attr(data-content);
     position: absolute;
@@ -265,25 +228,28 @@
     pointer-events: none;
     transition: 0.5s ease;
 }
-
 .container.index span:hover {
     color: transparent;
 }
-
 .container.index span:hover::before {
     color: rgb(255, 0, 191);
 }
 
-/* help page and its elements */
-.container.help{
-    background: url(../Images/Backgrounds/roz6.png) center/cover;
-}
-
 /* game page and its contents */
-
 .container.game{
     padding-top: 200px;
-    padding-bottom: 10%;
+    padding-bottom: 10%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container.game h1{
+    color: white;
+}
+.gamebox{
+    width: 100%;
+    height: 700px;
+    background-color: rgba(0, 0, 0, 0.8); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -294,31 +260,15 @@
     background: url(../Images/Backgrounds/roz2.png) center/cover;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
     margin-top: 10px
-}
-.leaderboard.body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.background.leaderboard{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100vh;
 }
 .leaderboard {
     text-align: center;
-    width: 70%;
+    width: 75%;
     margin: 0 auto;
+    padding-left: 5%;
+    padding-right: 5%;
 }
-
 .leaderboard h1 {
     color: white;
     text-align: center;
@@ -326,15 +276,12 @@
     padding-bottom: 40px;
     margin-bottom: 20px;
 }
-
 .top-three {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
-    padding: 0 20px;
     margin-bottom: 30px;
 }
-
 .placement {
     flex: 1;
     display: flex;
@@ -356,8 +303,6 @@
     left: 50%;
     transform: translateX(-50%);
 }
-
-
 .placement.one{
     background-color: rgb(255, 215, 0, 0.3);
 }
@@ -371,31 +316,26 @@
 .placement:hover {
     background-color: rgb(255, 0, 191, 0.4);
 }
-
 .placement.one { 
     width: 100px;
     margin-right: 5%;
     margin-left: 5%;
     height: 265px;
 }
-
 .placement.two {
     margin-right: 10%;
     margin-left: 15%;
     height: 180px;
 }
-
 .placement.three {
     margin-right: 15%;
     margin-left: 10%;
     height: 120px;
 }
-
 .name-score {
     font-size: 18px;
     color: white;
 }
-
 .others .player-box {
     display: flex;
     justify-content: space-between;
@@ -416,7 +356,6 @@
     background-color: transparent;
     margin-bottom: 5px;
 }
-
 .position {
     flex: 1;
     text-align: left;
@@ -429,16 +368,13 @@
     flex: 2;
     text-align: center;
 }
-
 .score {
     flex: 1;
     text-align: right;
 }
-
 .others .player-box:last-child {
     margin-bottom: 15%;
 }
-
 .others .player-box:hover {
     background-color: rgb(255, 0, 191, 0.4);
 }
@@ -451,22 +387,18 @@
 .menu.logreg ul{
     margin-left: 40px;
 }
-
 .menu ul li:nth-child(4) {
     margin-left: 60px; 
     transition: opacity 0.4s ease, z-index 0.4s ease;
 }
-
 .menu ul li:nth-child(5) {
     margin-left: -60px; 
     transition: opacity 0.4s ease, z-index 0.4s ease;
 }
-
 .container.logreg{
     margin-top: 10px;
     background: url(../Images/Backgrounds/roz4.png) center/cover;
 }
-
 .container.logreg .content{
     position: absolute;
     top: 0;
@@ -482,46 +414,44 @@
     flex-direction: column;
     padding-bottom: 75px;
 }
-
 .container.logreg .content .logo{
     font-size: 35px;
+    margin-left: 0;
 }
-
 .container.logreg .content .terms a{
     color: white;
     font-size: 17px;
 }
+.text-sci h2{
+    font-size: 35px;
+}
 .text-sci h2 span{
     font-size: 25px;
-    }
+} 
+ .text-sci p{
+    font-size: 16px;
+    margin: 20px 0;
+    padding-right: 15%;
+    padding-bottom: 10%;
     
-    .text-sci p{
-        font-size: 16px;
-        margin: 20px 0;
-        padding-right: 15%;
-        padding-bottom: 10%;
-    
-    }
-    .container.logreg .content .terms a{
-        color: white;
-        transition: 0.5 ease;
-        text-decoration: none;
-    }
-    
-    .container.logreg .content .terms a:hover{
-        color: rgb(255, 0, 191);
-        text-decoration: underline;
-    }
-    
-    .container.logreg .logbox{
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        right: 0;
+}
+.container.logreg .content .terms a{
+    color: white;
+    transition: 0.5 ease;
+    text-decoration: none;
+} 
+.container.logreg .content .terms a:hover{
+    color: rgb(255, 0, 191);
+    text-decoration: underline;
+ }
+.container.logreg .logbox{
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
     width: 42%;
     height: 100%;
-    }
-
+}
 .form-box {
     position: absolute;
     display: flex;
@@ -535,8 +465,6 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
-
 .logbox .form-box.login{
     transform: translateX(0px);
     transition: transform 0.4s ease;
@@ -551,19 +479,15 @@
     transition: transform 0.4s ease;
     transition-delay: 0s;
 }
-
 .logbox.active .form-box.register{
     transform: translateX(0px);
     transition-delay: 0.6s;
 }
-
 .break{
     width: 115%;
     padding-left: 15%;
     padding-right: 5%;
 }
-
-
 .form-box h1{
     font-size: 31px;
     text-align: center;
@@ -591,7 +515,6 @@
     box-sizing: border-box;
     margin-bottom: 8px;
 }
-
 .input-box label{
     position: absolute;
     top: 50%;
@@ -602,46 +525,37 @@
     pointer-events: none;
     transition: .5s ease;
 }
-
-
 .input-box input:focus~label,
 .input-box input:valid~label{
 top:-13px;
 }
-
-
 .input-box .icon{
-position: absolute;
-top: -18%;
-right: 0;
-font-size: 19px;
+    position: absolute;
+    top: -18%;
+    right: 0;
+    font-size: 19px;
 }
 .input-box .icon svg{
-fill: white;
-transition: .5s ease;
+    fill: white;
+    transition: .5s ease;
 }
-
 .input-box .icon svg:hover{
     fill: rgb(255, 0, 191);
 }
-
 .forgot-remember{
     display: flex;
     justify-content: space-between;
     padding-right: 10%;
     margin-bottom: 18px;
 }
-
 .forgot-remember label input{
 accent-color: white;
 margin-right: 3px;
 transition: .3s, ease;
 }
-
 .forgot-remember label input:checked{
     accent-color: rgb(255, 0, 191);
-    }
-
+}
 .forgot-remember a{
     margin-left: 10px;
     color: white;
@@ -670,50 +584,45 @@ transition: .3s, ease;
     font-weight: bold;
     transition: 0.5s ease;
 }
-
 .break .btn:hover{
     background: white;
     color: rgb(255, 0, 191);
 }
-
-
 .form-box .login-register{
-font-size: 14.5px;
-font-weight: 500;
-text-align: center;
-margin-top: 25px;
-margin-right: 35px;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 25px;
+    margin-right: 35px;
 }
 .login-register p a{
-color: white;
-text-decoration: none;
-transition: 0.3s ease;
-font-weight: 600px;
-
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease;
+    font-weight: 600px;
 }
 .login-register p a:hover{
     text-decoration: underline;
     color: rgb(255, 0, 191);
 }
 
-/* help page and its elements*/
+/* help page and its elements */
 .container.help{
-display: flex;
-flex-direction: column;
-align-items:center;
-padding-top: 2%;
-padding-bottom: 5%;
-padding-left: 3%;
-padding-right: 3%;
-
+    background: url(../Images/Backgrounds/roz6.png) center/cover;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding-top: 2%;
+    padding-bottom: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
 }
-
 .container.help h1{
     color: white;
     transition: .3s ease;
     margin-bottom: 1%;
+    font-size: 35px;
 }
-
 .controlsbox{
     margin-top: 2%;
     margin-bottom: 2%;
@@ -721,11 +630,10 @@ padding-right: 3%;
     width: 100%;
     gap: 1.5%;
 }
-
 .arrows,
 .wasd{
     padding-top: 1%;
-    background-color: rgba(128, 128, 128, 0.2);
+    background-color: rgba(128, 128, 128, 0.4);
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -750,10 +658,9 @@ padding-right: 3%;
     font-size: 20px;
  }
 .tos{
-    
     display: flex;
     width: 100%;
-    background-color: rgba(128, 128, 128, 0.2);
+    background-color: rgba(128, 128, 128, 0.4);
     height: 100%;
     align-items: center;
     flex-direction: column;
@@ -764,7 +671,6 @@ padding-right: 3%;
     text-align: center;
     font-size: 15px;
 }
-
 .tos,
 .arrows,
 .wasd{
@@ -773,8 +679,8 @@ padding-right: 3%;
 .tos:hover,
 .arrows:hover,
 .wasd:hover{
-background-color: rgb(255, 0, 191, 0.3);
-transform: scale(1.05);
+    background-color: rgb(255, 0, 191, 0.3);
+    transform: scale(1.05);
 }
 
 /* footer and its elements */
@@ -787,37 +693,26 @@ transform: scale(1.05);
     background-color: rgba(0, 0, 0, 0.288);
     z-index: 2;
     align-items: center;
-    justify-content: space-between; 
+    justify-content:space-between;
 }
-
-
 .footer-left {
     margin-left: 30px;
     font-size: 8px;
     color: white;
     transition: 0.3s ease;
 }
-
-
 .footer-middle {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 8%;
+    margin-left: 6%;
     font-size: 8px;
+    text-align: center;
 }
-
 .footer-middle .logo {
     color: white;
     transition: 0.3s, ease;
 }
-
 .footer-middle .logo:hover {
     color: rgb(255, 0, 191);
 }
-
-
 .help-button {
     text-decoration: none;
     color: white;
@@ -825,29 +720,24 @@ transform: scale(1.05);
     transition: .3s ease;
     font-size: 13px;
 }
-
 .help-button:hover {
     color: rgb(255, 0, 191);
+    text-decoration: underline;
 }
-
-
 .footer-right {
     margin-right: 30px;
 }
-
 .footer-links ul {
     float: right;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .footer-links ul li {
     list-style: none;
     margin-left: 30px;
     font-size: 16px;
 }
-
 .footer-links ul li a {
     position: relative;
     white-space: nowrap;
@@ -857,12 +747,10 @@ transform: scale(1.05);
     font-weight: bold;
     transition: .3s ease;
 }
-
 .footer-links ul li a svg {
     fill: white;
     transition: .5s, ease;
 }
-
 .footer-links ul li a svg:hover {
     fill: rgb(255, 0, 191);
     transform: scale(1.2);
