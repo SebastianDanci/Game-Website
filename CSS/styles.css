@@ -14,7 +14,7 @@
     background-size: cover;
 }
 .background.index{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_8/6.png);
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz\ background.png);
 
 }
 
@@ -22,13 +22,13 @@
     background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_1/4.png);
 }
 .background.game{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_3/5.png);
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz3.png);
 }
 .background.leaderboard{
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url(../Images/Backgrounds/Ocean_5/5.png) center/cover;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url(../Images/Backgrounds/roz2.png) center/cover;
 }
 .background.logreg{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/Ocean_6/5.png) center/cover;
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz4.png) center/cover;
 }
 .background.index,
 .background.leaderboard,
@@ -53,8 +53,6 @@
     background-position: center;
     border-radius: 10;
 }
-
-
 
 /* navigation bar and its elements */
 .header {
@@ -164,7 +162,7 @@
 
 /* index page container and it's content */
 .container.index{
-    background: url(../Images/Backgrounds/Ocean_8/6.png) center/cover;
+    background: url(../Images/Backgrounds/roz\ background.png) center/cover;
     border-radius: 10px;
     padding-left: 10%;
     padding-right: 10%;
@@ -276,9 +274,6 @@
     color: rgb(255, 0, 191);
 }
 
-
-
-
 /* help page and its elements */
 .container.help{
     background: url(../Images/Backgrounds/Ocean_1/4.png) center/cover;
@@ -296,7 +291,7 @@
 
 /* leaderboard page and its contents */
 .container.leaderboard{
-    background: url(../Images/Backgrounds/Ocean_5/5.png) center/cover;
+    background: url(../Images/Backgrounds/roz2.png) center/cover;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -469,7 +464,7 @@
 
 .container.logreg{
     margin-top: 10px;
-    background: url(../Images/Backgrounds/Ocean_6/5.png) center/cover;
+    background: url(../Images/Backgrounds/roz4.png) center/cover;
 }
 
 .container.logreg .content{
@@ -701,18 +696,77 @@ font-weight: 600px;
     color: rgb(255, 0, 191);
 }
 
+/* help page and its elements*/
+.container.help{
+display: flex;
+flex-direction: column;
+align-items:center;
+padding-top: 2%;
+padding-bottom: 5%;
+padding-left: 3%;
+padding-right: 3%;
 
+}
 
+.container.help h1{
+    color: white;
+    transition: .3s ease;
+    margin-bottom: 1%;
+}
 
+.container.help h1:hover{
+    color: rgb(255, 0, 191);
+}
+.controlsbox{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display:flex;
+    width: 100%;
+    gap: 1%;
+}
 
-
-
-
-
-
-
-
-
+.arrows,
+.wasd{
+    padding-top: 1%;
+    background-color: rgba(128, 128, 128, 0.2);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.arrows img{
+    width: 70px;
+    height: 64px;
+}
+.controlsbox h2{
+    color: white;
+    font-weight: 100;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-weight: 300px;
+}
+ .controlsbox p{
+    text-align: center;
+    padding-left: 4%;
+    padding-right: 2%;
+    color: white;
+    font-size: 20px;
+ }
+.tos{
+    
+    display: flex;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.2);
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
+    padding: 3%;
+}
+.tos p{
+    color: white;
+    text-align: center;
+    font-size: 15px;
+}
 
 
 /* footer and its elements */
