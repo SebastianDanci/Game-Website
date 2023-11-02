@@ -1,31 +1,36 @@
-*{
-    margin:0;
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
 /* backgrounds for each page */
-.background.index{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz1.png);
+.background.index {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%), url(../Images/Backgrounds/roz1.png);
 }
-.background.help{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz6.png);
+
+.background.help {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%), url(../Images/Backgrounds/roz6.png);
 }
-.background.game{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz3.png);
+
+.background.game {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%), url(../Images/Backgrounds/roz3.png);
 }
-.background.leaderboard{
+
+.background.leaderboard {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url(../Images/Backgrounds/roz2.png) center/cover;
 }
-.background.logreg{
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%),url(../Images/Backgrounds/roz4.png) center/cover;
+
+.background.logreg {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5)50%, rgba(0, 0, 0, 0.5)50%), url(../Images/Backgrounds/roz4.png) center/cover;
 }
+
 .background.index,
 .background.leaderboard,
 .background.help,
 .background.game,
-.background.logreg{
+.background.logreg {
     width: 100%;
     height: 100vh;
     z-index: -1;
@@ -54,12 +59,14 @@
     width: 100%;
     z-index: 1;
 }
+
 .navbar {
-    padding-right:7px;
+    padding-right: 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .navbar .logo,
 .content .logo {
     cursor: pointer;
@@ -68,31 +75,38 @@
     margin-left: 30px;
     margin-bottom: 5px;
 }
+
 .navbar .logo {
     margin-top: 20px;
     font-size: 40px;
     float: left;
 }
+
 .content .logo {
     font-size: 30px;
     font-family: cursive;
 }
+
 .logo a {
     text-decoration: none;
     color: white;
     transition: 0.3s ease;
 }
+
 .logo a:hover,
 .content .logo a:hover {
     color: rgb(255, 0, 191);
 }
+
 .roz {
     color: rgb(255, 0, 191);
 }
+
 .menu {
     float: right;
     margin-right: 50px;
 }
+
 .menu ul {
     display: flex;
     justify-content: center;
@@ -101,11 +115,13 @@
     padding-top: 7px;
     margin-right: 15px;
 }
+
 .menu ul li {
     list-style: none;
     margin-left: 60px;
     font-size: 16px;
 }
+
 .menu ul li a {
     position: relative;
     white-space: nowrap;
@@ -116,9 +132,11 @@
     transition: 0.3s ease;
     cursor: pointer;
 }
+
 .menu ul li a:hover {
     color: rgb(255, 0, 191);
 }
+
 .menu ul li a::after {
     content: '';
     position: absolute;
@@ -132,13 +150,14 @@
     transition: 0.3s ease;
     opacity: 0;
 }
+
 .menu ul li a:hover::after {
     transform: translateY(0);
     opacity: 1;
 }
 
-/* index page container and it's content */
-.container.index{
+/* index page container and its content */
+.container.index {
     background: url(../Images/Backgrounds/roz1.png) center/cover;
     padding-left: 10%;
     padding-right: 10%;
@@ -146,23 +165,27 @@
     justify-content: center;
     align-items: center;
 }
+
 .welcome-icon {
     display: flex;
     justify-content: center;
     padding-bottom: 20px;
     margin-bottom: 25px;
 }
+
 .welcome-icon img {
-    width: 240px; 
-    height: 135px; 
+    width: 240px;
+    height: 135px;
 }
+
 .buttons {
     display: flex;
     align-items: center;
     gap: 25%;
-    justify-content: space-evenly; 
+    justify-content: space-evenly;
     padding-top: 20px;
 }
+
 .welcome-message {
     display: flex;
     flex-direction: column;
@@ -171,30 +194,34 @@
     color: white;
     margin: 20px;
 }
+
 .welcome-message h1 {
     margin-bottom: 50px;
     font-size: 36px;
-    line-height: 1.5; 
-    color: white;  
-    padding: 10px;  
+    line-height: 1.5;
+    color: white;
+    padding: 10px;
 }
+
 .welcome-message p {
     font-size: 20px;
-    font-weight:bolder;
+    font-weight: bolder;
     margin-bottom: 10px;
-    line-height: 1.5; 
-    color: white;  
-    padding: 7px;  
+    line-height: 1.5;
+    color: white;
+    padding: 7px;
 }
-.buttons .button{
+
+.buttons .button {
     position: relative;
     display: flex;
     justify-content: space-between;
 }
-.buttons .button .btn{
-    padding: 10px 20px; 
+
+.buttons .button .btn {
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px; 
+    border-radius: 5px;
     color: white;
     transition: background-color 0.3s;
     width: 200px;
@@ -206,62 +233,70 @@
     font-weight: bold;
     transition: 0.5s ease;
 }
-.buttons .button .btn:hover{
+
+.buttons .button .btn:hover {
     background: white;
     color: rgb(255, 0, 191);
 }
+
 .container.index span {
     position: relative;
     transition: 0.5s ease;
-    display: inline-block; 
+    display: inline-block;
 }
+
 .container.index span::before {
     content: attr(data-content);
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: hidden; 
-    white-space: nowrap; 
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
     color: transparent;
     pointer-events: none;
     transition: 0.5s ease;
 }
+
 .container.index span:hover {
     color: transparent;
 }
+
 .container.index span:hover::before {
     color: rgb(255, 0, 191);
 }
 
-/* game page and its contents */
-.container.game{
+/* game page and its content */
+.container.game {
     padding-top: 200px;
-    padding-bottom: 10%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.container.game h1{
-    color: white;
-}
-.gamebox{
-    width: 100%;
-    height: 700px;
-    background-color: rgba(0, 0, 0, 0.8); 
+    padding-bottom: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* leaderboard page and its contents */
-.container.leaderboard{
+.container.game h1 {
+    color: white;
+}
+
+.gamebox {
+    width: 100%;
+    height: 700px;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* leaderboard page and its content */
+.container.leaderboard {
     background: url(../Images/Backgrounds/roz2.png) center/cover;
     justify-content: center;
     align-items: center;
     margin-top: 10px
 }
+
 .leaderboard {
     text-align: center;
     width: 75%;
@@ -269,6 +304,7 @@
     padding-left: 5%;
     padding-right: 5%;
 }
+
 .leaderboard h1 {
     color: white;
     text-align: center;
@@ -276,12 +312,14 @@
     padding-bottom: 40px;
     margin-bottom: 20px;
 }
+
 .top-three {
     display: flex;
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 30px;
 }
+
 .placement {
     flex: 1;
     display: flex;
@@ -297,45 +335,56 @@
     transition: 0.5s ease;
     position: relative;
 }
-.medal-one, .medal-two, .medal-three {
+
+.medal-one,
+.medal-two,
+.medal-three {
     position: absolute;
     top: -35px;
     left: 50%;
     transform: translateX(-50%);
 }
-.placement.one{
+
+.placement.one {
     background-color: rgb(255, 215, 0, 0.3);
 }
-.placement.two{
+
+.placement.two {
     background-color: rgba(166, 166, 166, 0.3);
 }
 
-.placement.three{
+.placement.three {
     background: rgba(187, 115, 43, 0.3)
 }
+
 .placement:hover {
     background-color: rgb(255, 0, 191, 0.4);
 }
-.placement.one { 
+
+.placement.one {
     width: 100px;
     margin-right: 5%;
     margin-left: 5%;
     height: 265px;
 }
+
 .placement.two {
     margin-right: 10%;
     margin-left: 15%;
     height: 180px;
 }
+
 .placement.three {
     margin-right: 15%;
     margin-left: 10%;
     height: 120px;
 }
+
 .name-score {
     font-size: 18px;
     color: white;
 }
+
 .others .player-box {
     display: flex;
     justify-content: space-between;
@@ -350,56 +399,68 @@
     text-align: center;
     transition: 0.5s ease;
 }
-.others .player-box.one{
+
+.others .player-box.one {
     border: none;
     font-size: 20px;
     background-color: transparent;
     margin-bottom: 5px;
 }
+
 .position {
     flex: 1;
     text-align: left;
 }
-.top-three .placement .position{
+
+.top-three .placement .position {
     font-size: 30px;
     margin-top: 5px;
 }
+
 .name {
     flex: 2;
     text-align: center;
 }
+
 .score {
     flex: 1;
     text-align: right;
 }
+
 .others .player-box:last-child {
     margin-bottom: 15%;
 }
+
 .others .player-box:hover {
     background-color: rgb(255, 0, 191, 0.4);
 }
+
 .others .player-box.one:hover {
     background-color: transparent;
 }
 
-/* login page and its elements */
+/* login page and its content */
 
-.menu.logreg ul{
+.menu.logreg ul {
     margin-left: 40px;
 }
+
 .menu ul li:nth-child(4) {
-    margin-left: 60px; 
+    margin-left: 60px;
     transition: opacity 0.4s ease, z-index 0.4s ease;
 }
+
 .menu ul li:nth-child(5) {
-    margin-left: -60px; 
+    margin-left: -60px;
     transition: opacity 0.4s ease, z-index 0.4s ease;
 }
-.container.logreg{
+
+.container.logreg {
     margin-top: 10px;
     background: url(../Images/Backgrounds/roz4.png) center/cover;
 }
-.container.logreg .content{
+
+.container.logreg .content {
     position: absolute;
     top: 0;
     left: 0;
@@ -414,37 +475,45 @@
     flex-direction: column;
     padding-bottom: 75px;
 }
-.container.logreg .content .logo{
+
+.container.logreg .content .logo {
     font-size: 35px;
     margin-left: 0;
 }
-.container.logreg .content .terms a{
+
+.container.logreg .content .terms a {
     color: white;
     font-size: 17px;
 }
-.text-sci h2{
+
+.text-sci h2 {
     font-size: 35px;
 }
-.text-sci h2 span{
+
+.text-sci h2 span {
     font-size: 25px;
-} 
- .text-sci p{
+}
+
+.text-sci p {
     font-size: 16px;
     margin: 20px 0;
     padding-right: 15%;
     padding-bottom: 10%;
-    
+
 }
-.container.logreg .content .terms a{
+
+.container.logreg .content .terms a {
     color: white;
     transition: 0.5 ease;
     text-decoration: none;
-} 
-.container.logreg .content .terms a:hover{
+}
+
+.container.logreg .content .terms a:hover {
     color: rgb(255, 0, 191);
     text-decoration: underline;
- }
-.container.logreg .logbox{
+}
+
+.container.logreg .logbox {
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -452,6 +521,7 @@
     width: 42%;
     height: 100%;
 }
+
 .form-box {
     position: absolute;
     display: flex;
@@ -461,47 +531,55 @@
     height: 100%;
     background: transparent;
     color: white;
-    backdrop-filter: blur(10px) ;
+    backdrop-filter: blur(10px);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-.logbox .form-box.login{
+
+.logbox .form-box.login {
     transform: translateX(0px);
     transition: transform 0.4s ease;
     transition-delay: .6s;
 }
-.logbox.active .form-box.login{
+
+.logbox.active .form-box.login {
     transform: translateX(1000px);
     transition-delay: 0s;
 }
-.logbox .form-box.register{
+
+.logbox .form-box.register {
     transform: translateX(1000px);
     transition: transform 0.4s ease;
     transition-delay: 0s;
 }
-.logbox.active .form-box.register{
+
+.logbox.active .form-box.register {
     transform: translateX(0px);
     transition-delay: 0.6s;
 }
-.break{
+
+.break {
     width: 115%;
     padding-left: 15%;
     padding-right: 5%;
 }
-.form-box h1{
+
+.form-box h1 {
     font-size: 31px;
     text-align: center;
     padding-right: 10%;
     padding-bottom: 30px;
 }
-.form-box .input-box{
+
+.form-box .input-box {
     position: relative;
     width: 90%;
     height: 10%;
     border-bottom: 2px solid white;
     margin: 30px 0;
 }
-.input-box input{
+
+.input-box input {
     flex: 1;
     width: 100%;
     height: 100%;
@@ -515,7 +593,8 @@
     box-sizing: border-box;
     margin-bottom: 8px;
 }
-.input-box label{
+
+.input-box label {
     position: absolute;
     top: 50%;
     left: 0;
@@ -525,53 +604,64 @@
     pointer-events: none;
     transition: .5s ease;
 }
+
 .input-box input:focus~label,
-.input-box input:valid~label{
-top:-13px;
+.input-box input:valid~label {
+    top: -13px;
 }
-.input-box .icon{
+
+.input-box .icon {
     position: absolute;
     top: -18%;
     right: 0;
     font-size: 19px;
 }
-.input-box .icon svg{
+
+.input-box .icon svg {
     fill: white;
     transition: .5s ease;
 }
-.input-box .icon svg:hover{
+
+.input-box .icon svg:hover {
     fill: rgb(255, 0, 191);
 }
-.forgot-remember{
+
+.forgot-remember {
     display: flex;
     justify-content: space-between;
     padding-right: 10%;
     margin-bottom: 18px;
 }
-.forgot-remember label input{
-accent-color: white;
-margin-right: 3px;
-transition: .3s, ease;
+
+.forgot-remember label input {
+    accent-color: white;
+    margin-right: 3px;
+    transition: .3s, ease;
 }
-.forgot-remember label input:checked{
+
+.forgot-remember label input:checked {
     accent-color: rgb(255, 0, 191);
 }
-.forgot-remember a{
+
+.forgot-remember a {
     margin-left: 10px;
     color: white;
     text-decoration: none;
     transition: 0.3s ease;
 }
-.forgot-remember a:hover{
+
+.forgot-remember a:hover {
     text-decoration: underline;
     color: rgb(255, 0, 191);
 }
-.break .button{
+
+.break .button {
     display: flex;
     justify-content: space-between;
     padding-right: 10%;
 }
-.break .btn{
+
+.break .btn {
     width: 100%;
     height: 45px;
     background: rgb(255, 0, 191);
@@ -584,54 +674,61 @@ transition: .3s, ease;
     font-weight: bold;
     transition: 0.5s ease;
 }
-.break .btn:hover{
+
+.break .btn:hover {
     background: white;
     color: rgb(255, 0, 191);
 }
-.form-box .login-register{
+
+.form-box .login-register {
     font-size: 14.5px;
     font-weight: 500;
     text-align: center;
     margin-top: 25px;
     margin-right: 35px;
 }
-.login-register p a{
+
+.login-register p a {
     color: white;
     text-decoration: none;
     transition: 0.3s ease;
     font-weight: 600px;
 }
-.login-register p a:hover{
+
+.login-register p a:hover {
     text-decoration: underline;
     color: rgb(255, 0, 191);
 }
 
-/* help page and its elements */
-.container.help{
+/* help page and its content */
+.container.help {
     background: url(../Images/Backgrounds/roz6.png) center/cover;
     display: flex;
     flex-direction: column;
-    align-items:center;
+    align-items: center;
     padding-top: 2%;
     padding-bottom: 5%;
     padding-left: 3%;
     padding-right: 3%;
 }
-.container.help h1{
+
+.container.help h1 {
     color: white;
     transition: .3s ease;
     margin-bottom: 1%;
     font-size: 35px;
 }
-.controlsbox{
+
+.controlsbox {
     margin-top: 2%;
     margin-bottom: 2%;
-    display:flex;
+    display: flex;
     width: 100%;
     gap: 1.5%;
 }
+
 .arrows,
-.wasd{
+.wasd {
     padding-top: 1%;
     background-color: rgba(128, 128, 128, 0.4);
     width: 50%;
@@ -639,25 +736,29 @@ transition: .3s, ease;
     flex-direction: column;
     align-items: center;
 }
-.arrows img{
+
+.arrows img {
     width: 70px;
     height: 64px;
 }
-.controlsbox h2{
+
+.controlsbox h2 {
     color: white;
     font-weight: 100;
     margin-top: 2%;
     margin-bottom: 2%;
     font-weight: 300px;
 }
- .controlsbox p{
+
+.controlsbox p {
     text-align: center;
     padding-left: 4%;
     padding-right: 2%;
     color: white;
     font-size: 20px;
- }
-.tos{
+}
+
+.tos {
     display: flex;
     width: 100%;
     background-color: rgba(128, 128, 128, 0.4);
@@ -666,19 +767,22 @@ transition: .3s, ease;
     flex-direction: column;
     padding: 3%;
 }
-.tos p{
+
+.tos p {
     color: white;
     text-align: center;
     font-size: 15px;
 }
+
 .tos,
 .arrows,
-.wasd{
+.wasd {
     transition: .4s ease;
 }
+
 .tos:hover,
 .arrows:hover,
-.wasd:hover{
+.wasd:hover {
     background-color: rgb(255, 0, 191, 0.3);
     transform: scale(1.05);
 }
@@ -693,26 +797,31 @@ transition: .3s, ease;
     background-color: rgba(0, 0, 0, 0.288);
     z-index: 2;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
 }
+
 .footer-left {
     margin-left: 30px;
     font-size: 8px;
     color: white;
     transition: 0.3s ease;
 }
+
 .footer-middle {
     margin-left: 6%;
     font-size: 8px;
     text-align: center;
 }
+
 .footer-middle .logo {
     color: white;
     transition: 0.3s, ease;
 }
+
 .footer-middle .logo:hover {
     color: rgb(255, 0, 191);
 }
+
 .help-button {
     text-decoration: none;
     color: white;
@@ -720,24 +829,29 @@ transition: .3s, ease;
     transition: .3s ease;
     font-size: 13px;
 }
+
 .help-button:hover {
     color: rgb(255, 0, 191);
     text-decoration: underline;
 }
+
 .footer-right {
     margin-right: 30px;
 }
+
 .footer-links ul {
     float: right;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .footer-links ul li {
     list-style: none;
     margin-left: 30px;
     font-size: 16px;
 }
+
 .footer-links ul li a {
     position: relative;
     white-space: nowrap;
@@ -747,10 +861,12 @@ transition: .3s, ease;
     font-weight: bold;
     transition: .3s ease;
 }
+
 .footer-links ul li a svg {
     fill: white;
     transition: .5s, ease;
 }
+
 .footer-links ul li a svg:hover {
     fill: rgb(255, 0, 191);
     transform: scale(1.2);
