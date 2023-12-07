@@ -11,7 +11,7 @@
 
     <!-- Page title and favicon -->
     <title>Play NufaRoz</title>
-    <link rel="icon" href="Images/Logo/NufaRoz.jpg" type="image/jpg">
+    <link rel="icon" href="../Images/Logo/NufaRoz.jpg" type="image/jpg">
 </head>
 
 <body>
@@ -38,12 +38,34 @@
     <!-- Game background -->
     <div class="background game"></div>
 
-    <!-- Game container -->
+    <!--Main Container div-->
     <div class="container game">
-        <div class="gamebox">
-            <h1>- GAME HERE -</h1>
+        <!--Top Container-->
+        <div class="hpscore">
+            <!-- Runner Health-->
+            <div class="healthbox">
+                <div class="health"></div>
+                <div class="healthamount" id="'health"></div>
+            </div>
+            <!--Timer + score-->
+            <div class="timescore" id="score">score</div>
+            <!--Shield bar-->
+            <div class="shieldbox">
+                <div class="shield"></div>
+                <div class="shieldamount" id="shield"></div>
+            </div>
         </div>
+        <div class="result" id="gameOver">
+            <p>Game Over<br><br>Your score is:</p>
+            <p id="finalScore">score</p>
+        </div>
+        <canvas></canvas>
     </div>
+    </div>
+
+
+    <script src="../JS/game.js"></script>
+
 
     <!-- Footer section -->
     <div class="foooter">

@@ -56,4 +56,60 @@ document.addEventListener('DOMContentLoaded', () => {
     hideButtons();
     showLoginButton();
   });
+
+  class User {
+    constructor( name, email, phone, password ) {
+      this.name = name;
+      this.email = email;
+      this.phone = phone;
+      this.password = password;
+    }
+  }
+
+  localStorage.setItem("currentUser", "");
+
+  // Regular expression patterns
+  const namePattern = /^[a-zA-Z ]+$/; 
+  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; 
+  const phonePattern = /^\d{11}$/;
+  const passwordPattern =  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+
+
+  // Form and input elements
+  const form = document.getElementById('registrationForm');
+  const regEmail = document.getElementById('regEmail');
+  const regPhone = document.getElementById('regPhone');
+  const regName = document.getElementById('regName');
+  const regPassword = document.getElementById('regPassword');
+
+
+  // Function to validate inputs
+  function validateInput(inputElement, pattern) {
+    return pattern.test(inputElement.value);
+  }
+
+  // Event listener for form submission
+  form.addEventListener('submit', function (event) {
+    // Check each input against its pattern
+    if (!validateInput(regName, namePattern)) {
+      alert('Please enter a valid name.');
+      event.preventDefault();
+    } else if (!validateInput(regEmail, emailPattern)) {
+      alert('Please enter a valid email address.');
+      event.preventDefault();
+    } else if (!validateInput(regPhone, phonePattern)) {
+      alert('Please enter a valid phone number.');
+      event.preventDefault();
+    } else if (!validateInput(regPassword, passwordPattern)) {
+      alert('Please enter a valid Password\nMinimum 8 characters, at least one letter, one number, and one special character: @$!%*#?&');
+      event.preventDefault();
+    } else {
+      let user = new User(regName.value, regEmail.value, regPhone.value, regPassword.value);
+      localStorage.setItem(user.email, JSON.stringify(user));
+      localStorage.setItem("currentUser", user.name);
+      window.location.replace = '../HTML/game.html';
+    }
+  });
+
 });
