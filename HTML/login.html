@@ -67,7 +67,7 @@
             <!-- Login form -->
             <div class="form-box login">
                 <div class="break">
-                    <form action="#">
+                    <form action="#" id="loginForm">
                         <h1>Log In</h1>
 
                         <!-- Email input section -->
@@ -79,8 +79,8 @@
                                         d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.7-8 5.334L4 8.7V6.297l8 5.333 8-5.333V8.7z" />
                                 </svg>
                             </span>
-                            <input type="" id="logEmail" required>
-                            <label>Email</label>
+                            <input type="" id="logName" required>
+                            <label>Username</label>
                         </div>
 
                         <!-- Password input section -->
@@ -130,7 +130,7 @@
                                 </svg>
                             </span>
                             <input type="text" id="regName" required>
-                            <label>Name</label>
+                            <label>Username</label>
                         </div>
 
                         <!-- Email input section (for registration) -->
@@ -173,7 +173,7 @@
 
                         <!-- Terms and conditions checkbox -->
                         <div class="forgot-remember">
-                            <label><input type="checkbox"> I agree to the Terms & Conditions</label>
+                            <label><input type="checkbox" required oninvalid="this.setCustomValidity('You have to agree to the Terms and Conditins to proceed!')"> I agree to the Terms & Conditions</label>
                         </div>
 
                         <!-- Register button -->

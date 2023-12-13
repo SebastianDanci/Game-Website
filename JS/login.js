@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   class User {
-    constructor( name, email, phone, password ) {
+    constructor(name, email, phone, password) {
       this.name = name;
       this.email = email;
       this.phone = phone;
@@ -69,15 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
   localStorage.setItem("currentUser", "");
 
   // Regular expression patterns
-  const namePattern = /^[a-zA-Z ]+$/; 
-  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; 
-  const phonePattern = /^\d{11}$/;
-  const passwordPattern =  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const namePattern = /^[a-zA-Z ]+$/;
+  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  const phonePattern = /^(?:(?:0(?:0|11)[\s-]?|\+)44[\s-]?(?:0[\s-]?)?|0)(?:\d{2}[\s-]?\d{4}[\s-]?\d{4}|\d{3}[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))$/;
+  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
 
-
-  // Form and input elements
-  const form = document.getElementById('registrationForm');
+  // Register form and input elements
+  const regForm = document.getElementById('registrationForm');
   const regEmail = document.getElementById('regEmail');
   const regPhone = document.getElementById('regPhone');
   const regName = document.getElementById('regName');
@@ -90,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Event listener for form submission
-  form.addEventListener('submit', function (event) {
+  regForm.addEventListener('submit', function (event) {
     // Check each input against its pattern
     if (!validateInput(regName, namePattern)) {
       alert('Please enter a valid name.');
@@ -106,9 +105,37 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
     } else {
       let user = new User(regName.value, regEmail.value, regPhone.value, regPassword.value);
-      localStorage.setItem(user.email, JSON.stringify(user));
+      localStorage.setItem(user.name, JSON.stringify(user));
       localStorage.setItem("currentUser", user.name);
-      window.location.replace = '../HTML/game.html';
+      console.log(user.name)
+      setTimeout(function () {
+        window.location.href = 'game.html';
+      }, 500);
+      event.preventDefault();
+    }
+  });
+
+  const logForm = document.getElementById('loginForm');
+  const logName = document.getElementById('logName');
+  const logPassword = document.getElementById('logPassword');
+
+  logForm.addEventListener('submit', function (event) {
+    const logUser = localStorage.getItem(logName.value)
+    if (logUser)
+      if (JSON.parse(logUser).password === logPassword.value) {
+        setTimeout(function () {
+          localStorage.setItem("currentUser", logName.value);
+          window.location.href = 'game.html';
+        }, 500);
+        event.preventDefault();
+      }
+      else {
+        alert('Incorrect password!');
+        event.preventDefault();
+      }
+    else {
+      alert('No account found with username: ' + logName.value + '!');
+      event.preventDefault();
     }
   });
 
