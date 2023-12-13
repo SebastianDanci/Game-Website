@@ -13,6 +13,7 @@ const HEALTH_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelec
 const SHIELD_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelector('#shield')).width);
 const backgroundImage = new Image();
 
+
 // Set the source of the image
 backgroundImage.src = '../Images/Backgrounds/Background.png';
 
@@ -168,48 +169,92 @@ setInterval(() => {
 
 
 class Sprite {
-    constructor({ position, velocity, color, height, width }) {
+    constructor({ position, velocity, imageSrc, imageSideSrc, width, height }) {
         this.health = 100;
-        this.position = position
-        this.velocity = velocity
-        this.color = color
-        this.reachedEdgeRight = false
-        this.reachedEdgeLeft = false
-        this.width = width
-        this.height = height
-        this.isAttacking
+        this.position = position;
+        this.velocity = velocity;
+        this.width = width;
+        this.height = height;
+        this.isAttacking;
         this.isShieldActive = false;
         this.dashSpeed = 70;
         this.dashDuration = 50;
-        this.pauseBetweenDashes = 25;
+        this.pauseBetweenDashes = 10;
+
+        // Images
+        this.image = new Image();
+        this.imageSide = new Image();
+        this.imageLoaded = false;
+        this.imageSideLoaded = false;
+
+        // Load default image
+        this.image.src = imageSrc;
+        this.image.onload = () => {
+            this.imageLoaded = true;
+        };
+
+        // Load side image
+        this.imageSide.src = imageSideSrc;
+        this.imageSide.onload = () => {
+            this.imageSideLoaded = true;
+        };
+
         this.attackBox = {
             position: this.position,
             width: 100,
             height: 150,
             offset: 0,
             facing: 'right'
-        }
+        };
     }
+
     draw() {
-        c.fillStyle = this.color
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // Determine which image to use based on the facing direction
+        let imageToUse = this.velocity.x!=0 ? this.imageSide : this.image;
+        let posX = this.position.x;
+        let posY = this.position.y;
+        let width = this.width;
+        let height = this.height;
+
+        // Flip the context if facing left
+        if (this.attackBox.facing === 'left') {
+            c.save(); // Save the current state of the canvas
+            c.scale(-1, 1); // Flip the canvas horizontally
+            posX = -this.position.x - this.width; // Adjust the x position
+        }
+
+        // Draw the sprite only if the image is loaded
+        if ((this.attackBox.facing === 'right' && this.imageSideLoaded) || (this.attackBox.facing === 'left' && this.imageLoaded)) {
+            c.drawImage(imageToUse, posX, posY, width, height);
+        }
+
+        if (this.attackBox.facing === 'left') {
+            c.restore(); // Restore the canvas to the original state
+        }
+
+        // Draw attack box for visual debugging
         if (this.isAttacking) {
-            c.fillStyle = 'green'
-            c.fillRect(this.attackBox.position.x - this.attackBox.offset, this.attackBox.position.y - 50, this.attackBox.width, this.attackBox.height)
+            c.fillStyle = 'green';
+            if (this.facing === 'left') {
+                c.fillRect(-this.attackBox.position.x - this.attackBox.width, this.attackBox.position.y - 50, this.attackBox.width, this.attackBox.height);
+            } else {
+                c.fillRect(this.attackBox.position.x - this.attackBox.offset, this.attackBox.position.y - 50, this.attackBox.width, this.attackBox.height);
+            }
         }
     }
+
     update() {
         this.draw();
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-    
+
         // Adjust attack box offset based on facing direction
         if (this.attackBox.facing === 'left' && this.attackBox.offset === 0) {
             this.attackBox.offset = this.width;
         } else if (this.attackBox.facing === 'right' && this.attackBox.offset === this.width) {
             this.attackBox.offset = 0;
         }
-    
+
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height - 58) {
             this.velocity.y = 0;
@@ -217,12 +262,12 @@ class Sprite {
         } else {
             this.velocity.y += gravity;
         }
-    
+
         // Edge detection for left and right boundaries
         this.reachedEdgeLeft = this.position.x <= 0;
         this.reachedEdgeRight = this.position.x + this.width >= canvas.width;
     }
-    
+
 
     attack() {
         this.isAttacking = true
@@ -265,18 +310,13 @@ class Sprite {
 
 //create main character
 const player = new Sprite({
-    position: {
-        x: 0,
-        y: 0
-    },
-    velocity: {
-        x: 0,
-        y: 0
-    },
-    color: 'red',
-    width: 50,
+    position: { x: 100, y: 100 }, // Replace with actual starting position
+    velocity: { x: 0, y: 0 },
+    imageSrc: '../Images/Characters/boy.png',
+    imageSideSrc: '../Images/Characters/boyside.png', // Replace with the path to the knight image
+    width: 50, // Set the size of your character
     height: 75
-})
+});
 
 //create helper character
 const helper = new Sprite({
@@ -288,10 +328,11 @@ const helper = new Sprite({
         x: 0,
         y: 0
     },
-    color: 'blue',
-    width: 50,
-    height: 75
-})
+    imageSrc: '../Images/Characters/women.png',
+    imageSideSrc: '../Images/Characters/womenside.png', // Set the path to the helper's image
+    width: 50, // Same width as the player
+    height: 75 // Same height as the player
+});
 
 // Start spawning enemies
 spawnEnemies();
@@ -358,7 +399,7 @@ function handleGameOver() {
 function updateLeaderboard(finalScore) {
     // Retrieve current user, use "Guest" if not set or empty
     let currentUser = localStorage.getItem('currentUser');
-    if (!currentUser || currentUser.trim() === "") {    
+    if (!currentUser || currentUser.trim() === "") {
         currentUser = "Guest";
     }
 
@@ -551,7 +592,6 @@ window.addEventListener('keyup', (event) => {
             break
         case 'ArrowLeft':
             keys.left.pressed = false
-            helper.attackBox.facing = 'left'
             break
         case 'ArrowRight':
             keys.right.pressed = false
