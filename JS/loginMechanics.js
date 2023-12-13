@@ -23,5 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     logInOut();
+
+    window.addEventListener("beforeunload", function(event) {
+        if(localStorage.checked === "true"){}
+        else {
+            this.localStorage.currentUser=""
+        }
+    });
+    
     
 });
