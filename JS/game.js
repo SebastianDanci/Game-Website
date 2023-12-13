@@ -14,7 +14,7 @@ const SHIELD_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelec
 const backgroundImage = new Image();
 
 // Set the source of the image
-backgroundImage.src = '';
+backgroundImage.src = '../Images/Backgrounds/Background.png';
 
 // Ensure the image is loaded before drawing it
 backgroundImage.onload = function () {
@@ -130,11 +130,11 @@ function spawnEnemies() {
                 break;
             case 1: // Right
                 position.x = canvas.width;
-                position.y = Math.random() * (canvas.height - 15 - size); // Spawn above the bottom with a buffer
+                position.y = Math.random() * (canvas.height - 75 - size); // Spawn above the bottom with a buffer
                 break;
             case 3: // Left
                 position.x = -size;
-                position.y = Math.random() * (canvas.height - 15 - size); // Spawn above the bottom with a buffer
+                position.y = Math.random() * (canvas.height - 75 - size); // Spawn above the bottom with a buffer
                 break;
         }
 
@@ -199,19 +199,30 @@ class Sprite {
         }
     }
     update() {
-        this.draw()
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
-        if (this.attackBox.facing == 'left' && this.attackBox.offset == 0) this.attackBox.offset = this.width
-        else if (this.attackBox.facing == 'right' && this.attackBox.offset == this.width) this.attackBox.offset = 0
-        if (this.position.y + this.height + this.velocity.y >= canvas.height)
-            this.velocity.y = 0
-        else this.velocity.y += gravity
-        if (this.position.x <= 0) this.reachedEdgeLeft = true
-        else this.reachedEdgeLeft = false
-        if (this.position.x + this.width >= canvas.width) this.reachedEdgeRight = true
-        else this.reachedEdgeRight = false
+        this.draw();
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+    
+        // Adjust attack box offset based on facing direction
+        if (this.attackBox.facing === 'left' && this.attackBox.offset === 0) {
+            this.attackBox.offset = this.width;
+        } else if (this.attackBox.facing === 'right' && this.attackBox.offset === this.width) {
+            this.attackBox.offset = 0;
+        }
+    
+
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 58) {
+            this.velocity.y = 0;
+            this.position.y = canvas.height - this.height - 58; // Adjust to the new floor level
+        } else {
+            this.velocity.y += gravity;
+        }
+    
+        // Edge detection for left and right boundaries
+        this.reachedEdgeLeft = this.position.x <= 0;
+        this.reachedEdgeRight = this.position.x + this.width >= canvas.width;
     }
+    
 
     attack() {
         this.isAttacking = true
@@ -347,7 +358,7 @@ function handleGameOver() {
 function updateLeaderboard(finalScore) {
     // Retrieve current user, use "Guest" if not set or empty
     let currentUser = localStorage.getItem('currentUser');
-    if (!currentUser || currentUser.trim() === "") {
+    if (!currentUser || currentUser.trim() === "") {    
         currentUser = "Guest";
     }
 
@@ -413,8 +424,7 @@ function animate() {
         return; // Stop the game loop if the game is over
     }
     window.requestAnimationFrame(animate)
-    c.fillStyle = 'black'
-    c.fillRect(0, 0, canvas.width, canvas.height)
+    c.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
     player.update()
     helper.update()
     regenerateShield()

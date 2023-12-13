@@ -326,13 +326,15 @@ canvas {
 }
 
 .timescore {
-    background-color: purple;
+    background-color: rgba(0, 0, 0, 0.5);
     width: 100px;
     height: 100px;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 40px;
+    color: white;
 }
 
 .shieldbox {
