@@ -8,7 +8,7 @@ let timeElapsed = 0;
 let isGameOver = false;
 
 
-const gravity = 0.4
+const gravity = 0.6
 const HEALTH_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelector('#health')).width);
 const SHIELD_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelector('#shield')).width);
 const backgroundImage = new Image();
@@ -72,7 +72,7 @@ function spawnEnemies() {
         const size = 30;
         const position = { x: 0, y: 0 };
         const edge = Math.floor(Math.random() * 4); // 0 - top, 1 - right, 2 - bottom, 3 - left
-        let speedMultiplier = 1;
+        let speedMultiplier = 3;
         switch (edge) {
             case 0: // Top
                 position.x = Math.random() * canvas.width;
@@ -100,12 +100,12 @@ function spawnEnemies() {
             } else {
                 color = 'orange';
                 enemyType = TrackingEnemy;
-                speedMultiplier = 1.5; // Adjust speed for tracking enemies
+                speedMultiplier = 4.5; // Adjust speed for tracking enemies
             }
         } else {
             color = randomSelection < 0.3 ? 'purple' : 'orange';
             enemyType = color === 'purple' ? Enemy : TrackingEnemy;
-            speedMultiplier = color === 'purple' ? 1 : 1.5; // Adjust speed based on enemy type
+            speedMultiplier = color === 'purple' ? 3 : 4.5; // Adjust speed based on enemy type
         }
 
         // Set the velocity
@@ -330,8 +330,6 @@ function animate() {
     enemies.forEach((enemy, index) => {
         enemy.update();
 
-        // Check for collision with player's shield
-        // Check for collision with player's attack
         if (player.isAttacking) {
             // Calculate attack box position based on facing direction
             const attackBox = {
@@ -401,17 +399,17 @@ function animate() {
         }
     });
     //player movement
-    if (keys.d.pressed && lastkeyp === 'd' && player.reachedEdgeRight == false) player.velocity.x = 1.5
-    else if (keys.a.pressed && lastkeyp === 'a' && player.reachedEdgeLeft == false) player.velocity.x = -1.5
+    if (keys.d.pressed && lastkeyp === 'd' && player.reachedEdgeRight == false) player.velocity.x = 3
+    else if (keys.a.pressed && lastkeyp === 'a' && player.reachedEdgeLeft == false) player.velocity.x = -3
 
     //helper movement
     if (helper.velocity.y == 0) keys.up.count = 0
     if (keys.up.pressed == true && helper.velocity.y >= 0 && keys.up.count < 2) {
-        helper.velocity.y = -12
+        helper.velocity.y = -14
         keys.up.count += 1
     }
-    if (keys.right.pressed && lastkeyh === 'right' && helper.reachedEdgeRight == false) helper.velocity.x = 2
-    else if (keys.left.pressed && lastkeyh === 'left' && helper.reachedEdgeLeft == false) helper.velocity.x = -2
+    if (keys.right.pressed && lastkeyh === 'right' && helper.reachedEdgeRight == false) helper.velocity.x = 4
+    else if (keys.left.pressed && lastkeyh === 'left' && helper.reachedEdgeLeft == false) helper.velocity.x = -4
     updateHealthBar()
 }
 
@@ -436,7 +434,7 @@ window.addEventListener('keydown', (event) => {
             decreaseShieldWidth();
             break
         case 'w':
-            if (player.velocity.y == 0) player.velocity.y = -12
+            if (player.velocity.y == 0) player.velocity.y = -14
             break
         case 'ArrowLeft':
             keys.left.pressed = true
