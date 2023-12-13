@@ -340,7 +340,7 @@ function handleGameOver() {
     document.querySelector('#gameOver').style.display = 'flex';
     // Stop the score timer
     clearTimeout(scoreTimer);
-    updateLeaderboard(currentGameScore);
+    updateLeaderboard(score);
 
 }
 
