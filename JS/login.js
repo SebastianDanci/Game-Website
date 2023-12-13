@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.currentUser===""){
+
   const logbox = document.querySelector('.logbox');
   const loginLink = document.querySelector('.login-link');
   const registerLink = document.querySelector('.register-link');
@@ -138,5 +140,5 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
     }
   });
-
+}else window.location.href = 'game.html';
 });

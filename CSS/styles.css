@@ -218,7 +218,8 @@
     justify-content: space-between;
 }
 
-.buttons .button .btn {
+.buttons .button .btn,
+.result .button .btn {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -234,7 +235,8 @@
     transition: 0.5s ease;
 }
 
-.buttons .button .btn:hover {
+.buttons .button .btn:hover,
+.result .button .btn:hover {
     background: white;
     color: rgb(255, 0, 191);
 }
@@ -276,7 +278,9 @@
 .container.game * {
     box-sizing: border-box;
 }
-
+.result .button{
+    margin-top: 25px;
+}
 .hpscore,
 .result {
     z-index: 6;

@@ -54,6 +54,8 @@ class TrackingEnemy extends Enemy {
         const angle = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x);
         this.velocity.x = Math.cos(angle);
         this.velocity.y = Math.sin(angle);
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
 
         super.update(); // Call the update method of the base class
     }
@@ -66,13 +68,61 @@ let spawnInterval = 1500; // Start with an interval of 1500 milliseconds
 
 function spawnEnemies() {
     function spawn() {
-        if (isGameOver){
+        if (isGameOver) {
             return;
         }
         const size = 30;
         const position = { x: 0, y: 0 };
         const edge = Math.floor(Math.random() * 4); // 0 - top, 1 - right, 2 - bottom, 3 - left
-        let speedMultiplier = 3;
+        let color, enemyType, speedMultiplier;
+
+        // Determine enemy type based on time elapsed
+        if (timeElapsed < 60 * 1000) {
+            // Only purple enemies
+            color = 'purple';
+            enemyType = Enemy;
+            speedMultiplier = 2;
+        } else if (timeElapsed < 120 * 1000) {
+            // Purple and orange enemies
+            if (Math.random() < 0.5) {
+                color = 'purple';
+                enemyType = Enemy;
+                speedMultiplier = 2;
+            } else {
+                color = 'orange';
+                enemyType = Enemy;
+                speedMultiplier = 6;
+            }
+        } else if (timeElapsed < 200 * 1000) {
+            // Orange and cyan enemies
+            if (Math.random() < 0.5) {
+                color = 'orange';
+                enemyType = Enemy;
+                speedMultiplier = 6;
+            } else {
+                color = 'cyan';
+                enemyType = TrackingEnemy;
+                speedMultiplier = 6;
+            }
+        } else {
+            // All types of enemies
+            const randomType = Math.random();
+            if (randomType < 0.18) {
+                color = 'purple';
+                enemyType = Enemy;
+                speedMultiplier = 2;
+            } else if (randomType < 0.60) {
+                color = 'orange';
+                enemyType = Enemy;
+                speedMultiplier = 6;
+            } else {
+                color = 'cyan';
+                enemyType = TrackingEnemy;
+                speedMultiplier = 6;
+            }
+        }
+
+        // Set the position based on the edge
         switch (edge) {
             case 0: // Top
                 position.x = Math.random() * canvas.width;
@@ -86,26 +136,6 @@ function spawnEnemies() {
                 position.x = -size;
                 position.y = Math.random() * (canvas.height - 15 - size); // Spawn above the bottom with a buffer
                 break;
-        }
-
-        let color, enemyType;
-        const randomSelection = Math.random();
-        if (timeElapsed < 60 * 1000) {
-            color = 'purple';
-            enemyType = Enemy;
-        } else if (timeElapsed < 120 * 1000) {
-            if (randomSelection < 0.5) {
-                color = 'purple';
-                enemyType = Enemy;
-            } else {
-                color = 'orange';
-                enemyType = TrackingEnemy;
-                speedMultiplier = 4.5; // Adjust speed for tracking enemies
-            }
-        } else {
-            color = randomSelection < 0.3 ? 'purple' : 'orange';
-            enemyType = color === 'purple' ? Enemy : TrackingEnemy;
-            speedMultiplier = color === 'purple' ? 3 : 4.5; // Adjust speed based on enemy type
         }
 
         // Set the velocity
@@ -123,9 +153,10 @@ function spawnEnemies() {
 }
 
 
+
 // Update the spawn interval every 10 seconds
 setInterval(() => {
-    if (spawnInterval > 500) { // Prevent it from going too low
+    if (spawnInterval > 400) { // Prevent it from going too low
         spawnInterval -= 100; // Decrease the interval
     }
 }, 10000); // Check every 10 seconds
@@ -147,6 +178,10 @@ class Sprite {
         this.width = width
         this.height = height
         this.isAttacking
+        this.isShieldActive = false;
+        this.dashSpeed = 70;
+        this.dashDuration = 50;
+        this.pauseBetweenDashes = 25;
         this.attackBox = {
             position: this.position,
             width: 100,
@@ -183,6 +218,37 @@ class Sprite {
         setTimeout(() => {
             this.isAttacking = false
         }, 100)
+    }
+    activateShield() {
+        this.isShieldActive = true;
+        this.color = 'gray'; // Change player color to green
+        const originalSpeedX = this.velocity.x;
+
+        // First Dash
+        this.velocity.x = this.velocity.x === 0 ? 0 : this.velocity.x > 0 ? this.dashSpeed : -this.dashSpeed;
+
+        setTimeout(() => {
+            // Pause between dashes
+            this.velocity.x = 0;
+
+            setTimeout(() => {
+                // Second Dash
+                this.velocity.x = originalSpeedX === 0 ? 0 : originalSpeedX > 0 ? this.dashSpeed : -this.dashSpeed;
+
+                setTimeout(() => {
+                    // End of the second dash
+                    this.velocity.x = originalSpeedX;
+
+                    setTimeout(() => {
+                        this.isShieldActive = false;
+                        this.color = 'red'; // Revert player color back to red
+                    }, 1500); // Duration for the shield (including double dash and pause)
+
+                }, this.dashDuration);
+
+            }, this.pauseBetweenDashes);
+
+        }, this.dashDuration);
     }
 }
 
@@ -249,7 +315,7 @@ function decreaseShieldWidth() {
     var parentWidth = parseFloat(window.getComputedStyle(shield.parentNode).width);
     if (shieldWidth > parentWidth * 0.4) {
         // Decrease the width by 100px
-        player.attack();
+        player.activateShield();
         var newWidth = shieldWidth - 300;
         newWidth = Math.max(newWidth, 0); // Make sure the new width is not negative
         shield.style.width = newWidth + 'px';
@@ -263,7 +329,7 @@ function regenerateShield() {
     // Only regenerate if the shield is not already at full width
     if (shieldWidth < SHIELD_FULL_WIDTH) {
         // Increment the shield's width
-        var newWidth = shieldWidth + 1; // Increase the width by 1px per frame or at desired rate
+        var newWidth = shieldWidth + 0.5; // Increase the width by 1px per frame or at desired rate
         newWidth = Math.min(newWidth, SHIELD_FULL_WIDTH); // Ensure the new width does not exceed full width
         shield.style.width = newWidth + 'px';
     }
@@ -273,8 +339,37 @@ function handleGameOver() {
     isGameOver = true;
     document.querySelector('#gameOver').style.display = 'flex';
     // Stop the score timer
-    clearTimeout(scoreTimer); // assuming the timer ID is stored in `scoreTimer`
+    clearTimeout(scoreTimer);
+    updateLeaderboard(currentGameScore);
+
 }
+
+function updateLeaderboard(finalScore) {
+    // Retrieve current user, use "Guest" if not set or empty
+    let currentUser = localStorage.getItem('currentUser');
+    if (!currentUser || currentUser.trim() === "") {
+        currentUser = "Guest";
+    }
+
+    // Retrieve the existing leaderboard or initialize a new one
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+
+    // Add the current game's score to the leaderboard
+    leaderboard.push({ user: currentUser, score: finalScore });
+
+    // Sort the leaderboard by score in descending order
+    leaderboard.sort((a, b) => b.score - a.score);
+
+    // Keep only the top 7 scores
+    if (leaderboard.length > 7) {
+        leaderboard.length = 7;
+    }
+
+    // Save the updated leaderboard back to localStorage
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
+
 
 // This function should be called when the player takes damage
 function takeDamage(amount) {
@@ -330,26 +425,6 @@ function animate() {
     enemies.forEach((enemy, index) => {
         enemy.update();
 
-        if (player.isAttacking) {
-            // Calculate attack box position based on facing direction
-            const attackBox = {
-                x: player.attackBox.facing === 'left' ? player.position.x - player.attackBox.width/2 : player.position.x,
-                y: player.position.y -50,
-                width: player.attackBox.width,
-                height: player.attackBox.height
-            };
-
-            // Check if enemy is within the attack box
-            if (enemy.position.x < attackBox.x + attackBox.width &&
-                enemy.position.x + enemy.width > attackBox.x &&
-                enemy.position.y < attackBox.y + attackBox.height &&
-                enemy.position.y + enemy.height > attackBox.y) {
-                setTimeout(() => {
-                    enemies.splice(index, 1); // Remove enemy from array
-                }, 0);
-            }
-        }
-
         function updateScoreDisplay() {
             document.querySelector('#score').innerHTML = score;
             document.querySelector('#finalScore').innerHTML = score;
@@ -357,26 +432,28 @@ function animate() {
         // Check for collision with helper's attack
         if (helper.isAttacking) {
             const attackBox = {
-                x: helper.attackBox.facing === 'left' ? helper.position.x - helper.attackBox.width/2 : helper.position.x,
+                x: helper.attackBox.facing === 'left' ? helper.position.x - helper.attackBox.width / 2 : helper.position.x,
                 y: helper.position.y - 50,
                 width: helper.attackBox.width,
                 height: helper.attackBox.height
             };
-        
+
             if (enemy.position.x < attackBox.x + attackBox.width &&
                 enemy.position.x + enemy.width > attackBox.x &&
                 enemy.position.y < attackBox.y + attackBox.height &&
                 enemy.position.y + enemy.height > attackBox.y) {
-        
+
                 if (!isGameOver) {  // Check if the game is not over
                     if (enemy.color === 'purple') {
                         score += 10;
                     } else if (enemy.color === 'orange') {
                         score += 30;
+                    } else if (enemy.color === 'cyan') {
+                        score += 75;
                     }
                     updateScoreDisplay();
                 }
-        
+
                 setTimeout(() => {
                     enemies.splice(index, 1);
                 }, 0);
@@ -384,7 +461,7 @@ function animate() {
         }
 
         // Check for collision with player
-        if (enemy.position.x < player.position.x + player.width &&
+        if (!player.isShieldActive && enemy.position.x < player.position.x + player.width &&
             enemy.position.x + enemy.width > player.position.x &&
             enemy.position.y < player.position.y + player.height &&
             enemy.position.y + enemy.height > player.position.y) {
@@ -392,9 +469,6 @@ function animate() {
                 enemies.splice(index, 1); // Remove enemy from array
                 player.health -= 10; // Reduce player health
                 takeDamage(10)
-                if (player.health <= 0) {
-                    document.querySelector('#gameOver').style.display = 'flex'
-                }
             }, 0);
         }
     });
