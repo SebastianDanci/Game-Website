@@ -335,8 +335,8 @@ function animate() {
         if (player.isAttacking) {
             // Calculate attack box position based on facing direction
             const attackBox = {
-                x: player.attackBox.facing === 'left' ? player.position.x - player.attackBox.width : player.position.x,
-                y: player.position.y,
+                x: player.attackBox.facing === 'left' ? player.position.x - player.attackBox.width/2 : player.position.x,
+                y: player.position.y -50,
                 width: player.attackBox.width,
                 height: player.attackBox.height
             };
@@ -359,8 +359,8 @@ function animate() {
         // Check for collision with helper's attack
         if (helper.isAttacking) {
             const attackBox = {
-                x: helper.attackBox.facing === 'left' ? helper.position.x - helper.attackBox.width : helper.position.x,
-                y: helper.position.y,
+                x: helper.attackBox.facing === 'left' ? helper.position.x - helper.attackBox.width/2 : helper.position.x,
+                y: helper.position.y - 50,
                 width: helper.attackBox.width,
                 height: helper.attackBox.height
             };
