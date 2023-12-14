@@ -22,14 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    if(sessionStorage.getItem("checked") === "false") localStorage.setItem("currentUser", "");
     logInOut();
 
-    window.addEventListener("beforeunload", function(event) {
-        if(localStorage.checked === "true"){}
-        else {
-            this.localStorage.currentUser=""
-        }
-    });
+
     
     
 });
