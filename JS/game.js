@@ -293,7 +293,7 @@ class Sprite {
             offset: 0,
             facing: 'right'
         };
-        
+
     }
 
     draw() {
@@ -323,7 +323,7 @@ class Sprite {
         // Draw attack box for visual debugging
         if (this.isAttacking) {
             this.attackFrameCounter += 16.67; // Assuming ~60FPS
-        
+
             if (this.attackFrameCounter >= this.frameDuration) {
                 this.attackFrameCounter = 0;
                 this.currentAttackFrame++;
@@ -332,23 +332,24 @@ class Sprite {
                     this.currentAttackFrame = 0;
                 }
             }
-        
+
             if (this.currentAttackFrame < this.attackFrames.length) {
                 let attackPosX = this.position.x; // Adjust as needed
                 let attackPosY = this.position.y; // Adjust as needed
                 let attackWidth = this.attackBox.width + 60;
                 let attackHeight = this.attackBox.height + 40;
-        
+
                 if (this.attackBox.facing === 'right') {
                     c.save(); // Save the current state of the canvas
                     c.scale(-1, 1); // Flip the canvas horizontally
-                    c.drawImage(this.attackFrames[this.currentAttackFrame], -(attackPosX + attackWidth -15), attackPosY - 105, attackWidth, attackHeight);
+                    c.drawImage(this.attackFrames[this.currentAttackFrame], -(attackPosX + attackWidth - 15), attackPosY - 105, attackWidth, attackHeight);
                     c.restore(); // Restore the canvas to the original state
                 } else {
                     c.drawImage(this.attackFrames[this.currentAttackFrame], attackPosX - 68, attackPosY - 105, attackWidth, attackHeight);
                 }
             }
-        }}
+        }
+    }
 
 
     update() {

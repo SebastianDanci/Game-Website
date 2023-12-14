@@ -94,6 +94,7 @@ const termsCheckbox = document.getElementById('termsCheckbox')
     regForm.addEventListener('submit', function (event) {
 
       // Check each input against its pattern
+      if(localStorage.getItem(regName.value)){
       if (!validateInput(regName, namePattern)) {
         alert('Please enter a valid name.');
         event.preventDefault();
@@ -118,6 +119,8 @@ const termsCheckbox = document.getElementById('termsCheckbox')
         setTimeout(function () {
           window.location.href = 'game.html';
         }, 500);
+      }}else{
+        alert("This username has been already taken")
       }
     });
 
