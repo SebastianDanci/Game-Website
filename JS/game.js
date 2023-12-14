@@ -521,7 +521,7 @@ function updateLeaderboard(finalScore) {
     leaderboards.sort((a, b) => b.score - a.score);
 
     // Save the updated leaderboard back to localStorage
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboards));
+    localStorage.setItem('leaderboards', JSON.stringify(leaderboards));
 }
 
 
