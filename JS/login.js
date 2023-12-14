@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const regPhone = document.getElementById('regPhone');
     const regName = document.getElementById('regName');
     const regPassword = document.getElementById('regPassword');
-
+const termsCheckbox = document.getElementById('termsCheckbox')
 
     // Function to validate inputs
     function validateInput(inputElement, pattern) {
@@ -92,19 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for form submission
     regForm.addEventListener('submit', function (event) {
-      const termsCheckbox = document.querySelector('[type="checkbox"]');
-      console.log(termsCheckbox.checked); // This should log true if checked, false otherwise
-      // Check if the username already exists
-      if (localStorage.getItem(regName.value)) {
-        alert('Username already taken. Please choose a different username.');
-        event.preventDefault();
-        return;
-      }
-      if (!termsCheckbox.checked) {
-        termsCheckbox.setCustomValidity('You have to agree to the Terms and Conditions to proceed!');
-      } else {
-        termsCheckbox.setCustomValidity(''); // Reset custom validation
-      }
+
       // Check each input against its pattern
       if (!validateInput(regName, namePattern)) {
         alert('Please enter a valid name.');
@@ -118,18 +106,21 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (!validateInput(regPassword, passwordPattern)) {
         alert('Please enter a valid Password\nMinimum 8 characters, at least one letter, one number, and one special character: @$!%*#?&');
         event.preventDefault();
+      } else if (!termsCheckbox.checked) {
+        // If checkbox is not checked, set custom validity and prevent form submission
+        alert('You have to agree to the Terms and Conditions to proceed!');
+        event.preventDefault();
       } else {
-        localStorage.setItem("checked", "false")
+        // Checkbox is checked, proceed with form submission (if other validations are also successful)
         let user = new User(regName.value, regEmail.value, regPhone.value, regPassword.value);
         localStorage.setItem(user.name, JSON.stringify(user));
         localStorage.setItem("currentUser", user.name);
-        console.log(user.name)
         setTimeout(function () {
           window.location.href = 'game.html';
         }, 500);
-        event.preventDefault();
       }
     });
+
 
 
     const logForm = document.getElementById('loginForm');
