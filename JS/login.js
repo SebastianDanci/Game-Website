@@ -141,9 +141,11 @@ const termsCheckbox = document.getElementById('termsCheckbox')
             if (rememberMeCheckbox.checked) {
               // Checkbox is checked
               sessionStorage.setItem("checked", "true")
+              sessionStorage.setItem("check", "1")
             } else {
               // Checkbox is not checked
               sessionStorage.setItem("checked", "false")
+              sessionStorage.setItem("check", "1")
             }
 
             localStorage.setItem("currentUser", logName.value);
