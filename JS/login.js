@@ -92,7 +92,7 @@ const termsCheckbox = document.getElementById('termsCheckbox')
 
     // Event listener for form submission
     regForm.addEventListener('submit', function (event) {
-      const termsCheckbox = document.querySelector('[type="checkbox"]');
+
     
       // Check each input against its pattern
       if (!validateInput(regName, namePattern)) {
