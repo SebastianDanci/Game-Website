@@ -92,9 +92,9 @@ const termsCheckbox = document.getElementById('termsCheckbox')
 
     // Event listener for form submission
     regForm.addEventListener('submit', function (event) {
-
+      const termsCheckbox = document.querySelector('[type="checkbox"]');
+    
       // Check each input against its pattern
-      if(localStorage.getItem(regName.value)){
       if (!validateInput(regName, namePattern)) {
         alert('Please enter a valid name.');
         event.preventDefault();
@@ -107,8 +107,12 @@ const termsCheckbox = document.getElementById('termsCheckbox')
       } else if (!validateInput(regPassword, passwordPattern)) {
         alert('Please enter a valid Password\nMinimum 8 characters, at least one letter, one number, and one special character: @$!%*#?&');
         event.preventDefault();
+      } else if (localStorage.getItem(regName.value)) {
+        // Check if the username already exists
+        alert('Username already taken. Please choose a different username.');
+        event.preventDefault();
       } else if (!termsCheckbox.checked) {
-        // If checkbox is not checked, set custom validity and prevent form submission
+        // If checkbox is not checked, prevent form submission
         alert('You have to agree to the Terms and Conditions to proceed!');
         event.preventDefault();
       } else {
@@ -119,11 +123,9 @@ const termsCheckbox = document.getElementById('termsCheckbox')
         setTimeout(function () {
           window.location.href = 'game.html';
         }, 500);
-      }}else{
-        alert("This username has been already taken")
       }
     });
-
+    
 
 
     const logForm = document.getElementById('loginForm');
