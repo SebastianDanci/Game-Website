@@ -24,26 +24,98 @@ backgroundImage.onload = function () {
 };
 
 class Enemy {
-    constructor({ position, velocity, color, width, height }) {
+    constructor({ position, velocity, color, width, height, edge }) {
         this.position = position;
+        this.initialPositionX = this.position.x;
         this.velocity = velocity;
         this.color = color;
         this.width = width;
         this.height = height;
+        this.frameCounter = 0;
+        this.currentFrame = 0;
+        this.frames = [];
+        this.edge = edge;
+
+        // Load images for animation based on enemy color
+        if (this.color === 'purple') {
+            this.frames = [
+                '../Images/Enemies/purple1.png',
+                '../Images/Enemies/purple2.png',
+                '../Images/Enemies/purple3.png',
+                '../Images/Enemies/purple4.png'
+            ];
+        } else if (this.color === 'orange') {
+            this.frames = [
+                '../Images/Enemies/orange1.png',
+                '../Images/Enemies/orange2.png',
+                '../Images/Enemies/orange3.png',
+                '../Images/Enemies/orange4.png'
+            ];
+        } else {
+            this.frames = [
+                '../Images/Enemies/cyan1.png',
+                '../Images/Enemies/cyan2.png',
+                '../Images/Enemies/cyan3.png',
+                '../Images/Enemies/cyan4.png'
+            ];
+        }
+
+        // Initialize image objects for each frame
+        this.frames = this.frames.map(src => {
+            const img = new Image();
+            img.src = src;
+            return img;
+        });
+
+        // Calculate and store the initial angle to face away from the player
+        this.initialAngle = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x) + Math.PI;
     }
 
+
     draw() {
-        c.fillStyle = this.color;
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        if (this.color === 'cyan') this.initialAngle = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x) + Math.PI;
+        // Save the current state of the canvas
+        c.save();
+
+        // Translate and rotate the canvas context to the enemy's position and initial angle
+        c.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
+        c.rotate(this.initialAngle);
+        // If the enemy is purple and spawns from the left side, flip it vertically
+        if (this.color === 'purple' && this.edge != 1) {
+            if (this.edge == 2 || this.initialPositionX < canvas.width / 2) c.scale(1, -1); // Apply vertical flip
+        }
+
+        // Draw the enemy image centered on its position
+        if (this.frames.length > 0) {
+            c.drawImage(this.frames[this.currentFrame], -this.width / 2, -this.height / 2, this.width + 10, this.height + 10);
+        } else {
+            // If  frames not loaded, draw a rectangle
+            c.fillStyle = this.color;
+            c.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        }
+
+        // Restore the canvas context to its original state
+        c.restore();
     }
 
     update() {
         this.draw();
-        // Update position based on velocity
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+        this.updateAnimation();
+    }
+    updateAnimation() {
+        // Increase frame counter
+        this.frameCounter++;
+
+        if (this.frameCounter >= 15) {
+            // Reset counter and switch to the next frame
+            this.frameCounter = 0;
+            this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+        }
     }
 }
+
 
 class TrackingEnemy extends Enemy {
     constructor({ position, color, width, height }) {
@@ -146,7 +218,8 @@ function spawnEnemies() {
             y: Math.sin(angle) * speedMultiplier
         };
 
-        enemies.push(new enemyType({ position, velocity, color, width: size, height: size }));
+        enemies.push(new enemyType({ position, velocity, color, width: size, height: size, edge: edge }));
+
         setTimeout(spawn, spawnInterval);
     }
 
@@ -175,7 +248,6 @@ class Sprite {
         this.velocity = velocity;
         this.width = width;
         this.height = height;
-        this.isAttacking;
         this.isShieldActive = false;
         this.dashSpeed = 70;
         this.dashDuration = 50;
@@ -186,6 +258,7 @@ class Sprite {
         this.imageSide = new Image();
         this.imageLoaded = false;
         this.imageSideLoaded = false;
+        this.imageAttack = new Image()
 
         // Load default image
         this.image.src = imageSrc;
@@ -199,6 +272,20 @@ class Sprite {
             this.imageSideLoaded = true;
         };
 
+        // Load attack frames
+        this.attackFrames = [];
+        for (let i = 1; i <= 11; i++) {
+            const img = new Image();
+            img.src = `../Images/Characters/attack${i}.png`;
+            this.attackFrames.push(img);
+        }
+
+        // Attack animation properties
+        this.isAttacking = false;
+        this.currentAttackFrame = 0;
+        this.attackFrameCounter = 0;
+        this.attackDuration = 500; // Total attack duration in milliseconds
+        this.frameDuration = this.attackDuration / 11;
         this.attackBox = {
             position: this.position,
             width: 100,
@@ -206,11 +293,12 @@ class Sprite {
             offset: 0,
             facing: 'right'
         };
+        
     }
 
     draw() {
         // Determine which image to use based on the facing direction
-        let imageToUse = this.velocity.x!=0 ? this.imageSide : this.image;
+        let imageToUse = this.velocity.x != 0 ? this.imageSide : this.image;
         let posX = this.position.x;
         let posY = this.position.y;
         let width = this.width;
@@ -234,14 +322,34 @@ class Sprite {
 
         // Draw attack box for visual debugging
         if (this.isAttacking) {
-            c.fillStyle = 'green';
-            if (this.facing === 'left') {
-                c.fillRect(-this.attackBox.position.x - this.attackBox.width, this.attackBox.position.y - 50, this.attackBox.width, this.attackBox.height);
-            } else {
-                c.fillRect(this.attackBox.position.x - this.attackBox.offset, this.attackBox.position.y - 50, this.attackBox.width, this.attackBox.height);
+            this.attackFrameCounter += 16.67; // Assuming ~60FPS
+        
+            if (this.attackFrameCounter >= this.frameDuration) {
+                this.attackFrameCounter = 0;
+                this.currentAttackFrame++;
+                if (this.currentAttackFrame >= this.attackFrames.length) {
+                    this.isAttacking = false;
+                    this.currentAttackFrame = 0;
+                }
             }
-        }
-    }
+        
+            if (this.currentAttackFrame < this.attackFrames.length) {
+                let attackPosX = this.position.x; // Adjust as needed
+                let attackPosY = this.position.y; // Adjust as needed
+                let attackWidth = this.attackBox.width + 60;
+                let attackHeight = this.attackBox.height + 40;
+        
+                if (this.attackBox.facing === 'right') {
+                    c.save(); // Save the current state of the canvas
+                    c.scale(-1, 1); // Flip the canvas horizontally
+                    c.drawImage(this.attackFrames[this.currentAttackFrame], -(attackPosX + attackWidth -15), attackPosY - 105, attackWidth, attackHeight);
+                    c.restore(); // Restore the canvas to the original state
+                } else {
+                    c.drawImage(this.attackFrames[this.currentAttackFrame], attackPosX - 68, attackPosY - 105, attackWidth, attackHeight);
+                }
+            }
+        }}
+
 
     update() {
         this.draw();
@@ -270,10 +378,9 @@ class Sprite {
 
 
     attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
+        this.isAttacking = true;
+        this.currentAttackFrame = 0;
+        this.attackFrameCounter = 0;
     }
     activateShield() {
         this.isShieldActive = true;
@@ -310,19 +417,19 @@ class Sprite {
 
 //create main character
 const player = new Sprite({
-    position: { x: 100, y: 100 }, // Replace with actual starting position
+    position: { x: 100, y: canvas.height - 75 - 58 }, // Replace with actual starting position
     velocity: { x: 0, y: 0 },
     imageSrc: '../Images/Characters/boy.png',
     imageSideSrc: '../Images/Characters/boyside.png', // Replace with the path to the knight image
     width: 50, // Set the size of your character
-    height: 75
+    height: 75,
 });
 
 //create helper character
 const helper = new Sprite({
     position: {
-        x: 400,
-        y: 100
+        x: 1100,
+        y: canvas.height - 75 - 58
     },
     velocity: {
         x: 0,
@@ -331,7 +438,7 @@ const helper = new Sprite({
     imageSrc: '../Images/Characters/women.png',
     imageSideSrc: '../Images/Characters/womenside.png', // Set the path to the helper's image
     width: 50, // Same width as the player
-    height: 75 // Same height as the player
+    height: 75, // Same height as the player
 });
 
 // Start spawning enemies
@@ -411,11 +518,6 @@ function updateLeaderboard(finalScore) {
 
     // Sort the leaderboard by score in descending order
     leaderboard.sort((a, b) => b.score - a.score);
-
-    // Keep only the top 7 scores
-    if (leaderboard.length > 7) {
-        leaderboard.length = 7;
-    }
 
     // Save the updated leaderboard back to localStorage
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));

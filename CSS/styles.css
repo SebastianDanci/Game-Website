@@ -453,7 +453,17 @@ canvas {
     font-size: 18px;
     color: white;
 }
-
+.others{
+    max-height: 200px;
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    padding:20px;
+    margin-bottom: 20px;
+}
+.others::-webkit-scrollbar {
+    display: none; 
+}
 .others .player-box {
     display: flex;
     justify-content: space-between;

@@ -9,10 +9,23 @@ function updateLeaderboardDisplay() {
     updateTopPlacement('secondPlace', leaderboard, 1);
     updateTopPlacement('thirdPlace', leaderboard, 2);
 
-    for (let i = 3; i < 7; i++) {
-        updateOtherPlacement(`player${i + 1}Name`, `player${i + 1}Score`, leaderboard, i);
+    // Clear existing entries in 'otherPlayers'
+    const otherPlayersDiv = document.getElementById('otherPlayers');
+    otherPlayersDiv.innerHTML = '';
+
+    // Start from the 4th place
+    for (let i = 3; i < leaderboard.length; i++) {
+        const playerDiv = document.createElement('div');
+        playerDiv.className = 'player-box';
+        playerDiv.innerHTML = `
+            <span class="position">${i + 1}.</span>
+            <span class="name">${leaderboard[i].user}</span>
+            <span class="score">${leaderboard[i].score}</span>
+        `;
+        otherPlayersDiv.appendChild(playerDiv);
     }
 }
+
 
 function updateTopPlacement(placeId, leaderboard, index) {
     const placeElement = document.getElementById(placeId);
