@@ -512,16 +512,16 @@ function updateLeaderboard(finalScore) {
     }
 
     // Retrieve the existing leaderboard or initialize a new one
-    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    const leaderboards = JSON.parse(localStorage.getItem('leaderboards')) || [];
 
     // Add the current game's score to the leaderboard
-    leaderboard.push({ user: currentUser, score: finalScore });
+    leaderboards.push({ user: currentUser, score: finalScore });
 
     // Sort the leaderboard by score in descending order
-    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboards.sort((a, b) => b.score - a.score);
 
     // Save the updated leaderboard back to localStorage
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboards));
 }
 
 

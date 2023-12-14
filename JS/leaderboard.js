@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function updateLeaderboardDisplay() {
-    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboards')) || [];
 
     updateTopPlacement('firstPlace', leaderboard, 0);
     updateTopPlacement('secondPlace', leaderboard, 1);

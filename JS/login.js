@@ -96,7 +96,7 @@ const termsCheckbox = document.getElementById('termsCheckbox')
     
       // Check each input against its pattern
       if (!validateInput(regName, namePattern)) {
-        alert('Please enter a valid name.');
+        alert('Please enter a valid name using only lowercase and uppercase letters.');
         event.preventDefault();
       } else if (!validateInput(regEmail, emailPattern)) {
         alert('Please enter a valid email address.');
