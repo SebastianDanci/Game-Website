@@ -22,10 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    if(sessionStorage.getItem("checked") === "false" && !(localStorage.getItem("check"))) localStorage.setItem("currentUser", "");
+    if(sessionStorage.getItem("checked")){}
+    else{
+        if(localStorage.getItem("checked")=== "false")localStorage.setItem("currentUser", "");
+    }
     logInOut();
-
-
     
     
 });
