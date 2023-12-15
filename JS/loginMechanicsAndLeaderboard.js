@@ -1,6 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
-    updateLeaderboardDisplay();
+document.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem("checked")) { }
+    else {
+        if (localStorage.getItem("checked") === "false") localStorage.setItem("currentUser", "");
+    }
+
+    if (document.getElementById('otherPlayers')) updateLeaderboardDisplay();
+
+    logInOut();
 });
+
+function logInOut() {
+    if (localStorage.currentUser === "") {
+    } else {
+        const navButton = document.getElementById('logInOut');
+        if (navButton) {
+            navButton.innerHTML = 'Log Out';
+            navButton.addEventListener('click', () => {
+                localStorage.setItem("currentUser", "");
+                logInOut();
+            });
+        }
+
+        const button = document.getElementById('logInOutButton');
+        if (button) {
+            button.textContent = 'Log Out';
+            button.addEventListener('click', () => {
+                localStorage.setItem("currentUser", "");
+                logInOut();
+            });
+        }
+    }
+}
 
 function updateLeaderboardDisplay() {
     const leaderboard = JSON.parse(localStorage.getItem('leaderboards')) || [];

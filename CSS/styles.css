@@ -314,6 +314,7 @@ canvas {
 .health {
     background-color: yellow;
     height: 30px;
+    border-radius: 10px;
 }
 
 .healthamount {
@@ -323,6 +324,7 @@ canvas {
     bottom: 0;
     left: 0;
     right: 0;
+    border-radius: 10px;
 }
 
 .timescore {
@@ -335,6 +337,8 @@ canvas {
     align-items: center;
     font-size: 40px;
     color: white;
+    margin: 15px;
+    border-radius: 10px;
 }
 
 .shieldbox {
@@ -346,6 +350,7 @@ canvas {
 .shield {
     background-color: yellow;
     height: 30px;
+    border-radius: 10px;
 }
 
 .shieldamount {
@@ -355,6 +360,7 @@ canvas {
     bottom: 0;
     left: 0;
     right: 0;
+    border-radius: 10px;
 }
 
 

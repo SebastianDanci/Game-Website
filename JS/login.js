@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Set the user as an empty string on page load
     localStorage.setItem("currentUser", "");
 
     // Regular expression patterns
@@ -76,14 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const phonePattern = /^(?:(?:0(?:0|11)[\s-]?|\+)44[\s-]?(?:0[\s-]?)?|0)(?:\d{2}[\s-]?\d{4}[\s-]?\d{4}|\d{3}[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))$/;
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-
     // Register form and input elements
     const regForm = document.getElementById('registrationForm');
     const regEmail = document.getElementById('regEmail');
     const regPhone = document.getElementById('regPhone');
     const regName = document.getElementById('regName');
     const regPassword = document.getElementById('regPassword');
-const termsCheckbox = document.getElementById('termsCheckbox')
+    const termsCheckbox = document.getElementById('termsCheckbox')
 
     // Function to validate inputs
     function validateInput(inputElement, pattern) {
@@ -93,7 +93,6 @@ const termsCheckbox = document.getElementById('termsCheckbox')
     // Event listener for form submission
     regForm.addEventListener('submit', function (event) {
 
-    
       // Check each input against its pattern
       if (!validateInput(regName, namePattern)) {
         alert('Please enter a valid name using only lowercase and uppercase letters.');
@@ -120,13 +119,13 @@ const termsCheckbox = document.getElementById('termsCheckbox')
         let user = new User(regName.value, regEmail.value, regPhone.value, regPassword.value);
         localStorage.setItem(user.name, JSON.stringify(user));
         localStorage.setItem("currentUser", user.name);
+        sessionStorage.setItem("checked", "false")
+        localStorage.setItem("checked", "false")
         setTimeout(function () {
           window.location.href = 'game.html';
         }, 500);
       }
     });
-    
-
 
     const logForm = document.getElementById('loginForm');
     const logName = document.getElementById('logName');
@@ -147,7 +146,6 @@ const termsCheckbox = document.getElementById('termsCheckbox')
               sessionStorage.setItem("checked", "false")
               localStorage.setItem("checked", "false")
             }
-
             localStorage.setItem("currentUser", logName.value);
             window.location.href = 'game.html';
           }, 500);

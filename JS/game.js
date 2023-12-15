@@ -1,18 +1,14 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-
 canvas.width = 1280
 canvas.height = 720
 let timeElapsed = 0;
 let isGameOver = false;
-
-
-const gravity = 0.6
+const GRAVITY = 0.6
 const HEALTH_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelector('#health')).width);
 const SHIELD_FULL_WIDTH = parseFloat(window.getComputedStyle(document.querySelector('#shield')).width);
 const backgroundImage = new Image();
-
 
 // Set the source of the image
 backgroundImage.src = '../Images/Backgrounds/Background.png';
@@ -71,7 +67,6 @@ class Enemy {
         this.initialAngle = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x) + Math.PI;
     }
 
-
     draw() {
         if (this.color === 'cyan') this.initialAngle = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x) + Math.PI;
         // Save the current state of the canvas
@@ -80,9 +75,8 @@ class Enemy {
         // Translate and rotate the canvas context to the enemy's position and initial angle
         c.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
         c.rotate(this.initialAngle);
-        // If the enemy is purple and spawns from the left side, flip it vertically
         if (this.color === 'purple' && this.edge != 1) {
-            if (this.edge == 2 || this.initialPositionX < canvas.width / 2) c.scale(1, -1); // Apply vertical flip
+            if (this.edge == 2 || this.initialPositionX < canvas.width / 2) c.scale(1, -1);
         }
 
         // Draw the enemy image centered on its position
@@ -103,6 +97,9 @@ class Enemy {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         this.updateAnimation();
+        if (this.position.y >= canvas.height - 85) {
+            this.markForDeletion = true; // Mark this enemy for deletion
+        }
     }
     updateAnimation() {
         // Increase frame counter
@@ -116,7 +113,6 @@ class Enemy {
     }
 }
 
-
 class TrackingEnemy extends Enemy {
     constructor({ position, color, width, height }) {
         super({ position, velocity: { x: 0, y: 0 }, color, width, height });
@@ -129,11 +125,9 @@ class TrackingEnemy extends Enemy {
         this.velocity.y = Math.sin(angle);
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-
         super.update(); // Call the update method of the base class
     }
 }
-
 
 const enemies = [];
 
@@ -322,7 +316,7 @@ class Sprite {
 
         // Draw attack box for visual debugging
         if (this.isAttacking) {
-            this.attackFrameCounter += 16.67; // Assuming ~60FPS
+            this.attackFrameCounter += 16.67; // 60FPS
 
             if (this.attackFrameCounter >= this.frameDuration) {
                 this.attackFrameCounter = 0;
@@ -334,16 +328,16 @@ class Sprite {
             }
 
             if (this.currentAttackFrame < this.attackFrames.length) {
-                let attackPosX = this.position.x; // Adjust as needed
-                let attackPosY = this.position.y; // Adjust as needed
+                let attackPosX = this.position.x;
+                let attackPosY = this.position.y;
                 let attackWidth = this.attackBox.width + 60;
                 let attackHeight = this.attackBox.height + 40;
 
                 if (this.attackBox.facing === 'right') {
-                    c.save(); // Save the current state of the canvas
-                    c.scale(-1, 1); // Flip the canvas horizontally
+                    c.save();
+                    c.scale(-1, 1);
                     c.drawImage(this.attackFrames[this.currentAttackFrame], -(attackPosX + attackWidth - 15), attackPosY - 105, attackWidth, attackHeight);
-                    c.restore(); // Restore the canvas to the original state
+                    c.restore();
                 } else {
                     c.drawImage(this.attackFrames[this.currentAttackFrame], attackPosX - 68, attackPosY - 105, attackWidth, attackHeight);
                 }
@@ -367,9 +361,9 @@ class Sprite {
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height - 58) {
             this.velocity.y = 0;
-            this.position.y = canvas.height - this.height - 58; // Adjust to the new floor level
+            this.position.y = canvas.height - this.height - 58; // Adjust to the floor level
         } else {
-            this.velocity.y += gravity;
+            this.velocity.y += GRAVITY;
         }
 
         // Edge detection for left and right boundaries
@@ -377,52 +371,57 @@ class Sprite {
         this.reachedEdgeRight = this.position.x + this.width >= canvas.width;
     }
 
-
     attack() {
         this.isAttacking = true;
         this.currentAttackFrame = 0;
         this.attackFrameCounter = 0;
     }
+
     activateShield() {
         this.isShieldActive = true;
-        this.color = 'gray'; // Change player color to green
-        const originalSpeedX = this.velocity.x;
+        this.color = 'gray'; // Change player color to gray
+
+        const dashToEdge = (direction) => {
+            if (direction === 'right') {
+                return Math.min(this.dashSpeed, canvas.width - this.width - this.position.x);
+            } else {
+                return -Math.min(this.dashSpeed, this.position.x);
+            }
+        };
 
         // First Dash
-        this.velocity.x = this.velocity.x === 0 ? 0 : this.velocity.x > 0 ? this.dashSpeed : -this.dashSpeed;
+        const dashDistance1 = dashToEdge(this.velocity.x > 0 ? 'right' : 'left');
+        this.position.x += dashDistance1;
 
         setTimeout(() => {
             // Pause between dashes
-            this.velocity.x = 0;
-
             setTimeout(() => {
                 // Second Dash
-                this.velocity.x = originalSpeedX === 0 ? 0 : originalSpeedX > 0 ? this.dashSpeed : -this.dashSpeed;
+                const dashDistance2 = dashToEdge(this.velocity.x > 0 ? 'right' : 'left');
+                this.position.x += dashDistance2;
 
                 setTimeout(() => {
-                    // End of the second dash
-                    this.velocity.x = originalSpeedX;
-
-                    setTimeout(() => {
-                        this.isShieldActive = false;
-                        this.color = 'red'; // Revert player color back to red
-                    }, 1500); // Duration for the shield (including double dash and pause)
-
-                }, this.dashDuration);
-
+                    this.isShieldActive = false;
+                    this.color = 'red'; // Revert player color back to red
+                }, 1500); // Duration for the shield (including double dash and pause)
             }, this.pauseBetweenDashes);
-
         }, this.dashDuration);
     }
 }
 
 //create main character
 const player = new Sprite({
-    position: { x: 100, y: canvas.height - 75 - 58 }, // Replace with actual starting position
-    velocity: { x: 0, y: 0 },
+    position: {
+        x: 100,
+        y: canvas.height - 75 - 58
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    },
     imageSrc: '../Images/Characters/boy.png',
-    imageSideSrc: '../Images/Characters/boyside.png', // Replace with the path to the knight image
-    width: 50, // Set the size of your character
+    imageSideSrc: '../Images/Characters/boyside.png',
+    width: 50,
     height: 75,
 });
 
@@ -437,9 +436,9 @@ const helper = new Sprite({
         y: 0
     },
     imageSrc: '../Images/Characters/women.png',
-    imageSideSrc: '../Images/Characters/womenside.png', // Set the path to the helper's image
-    width: 50, // Same width as the player
-    height: 75, // Same height as the player
+    imageSideSrc: '../Images/Characters/womenside.png',
+    width: 50, 
+    height: 75, 
 });
 
 // Start spawning enemies
@@ -465,6 +464,7 @@ const keys = {
     }
 
 }
+
 function decreaseShieldWidth() {
     // Get the shield element and its computed style
     var shield = document.querySelector('#shield');
@@ -500,6 +500,7 @@ function handleGameOver() {
     document.querySelector('#gameOver').style.display = 'flex';
     // Stop the score timer
     clearTimeout(scoreTimer);
+    //Update the leaderboard array in localstorage
     updateLeaderboard(score);
 
 }
@@ -524,9 +525,7 @@ function updateLeaderboard(finalScore) {
     localStorage.setItem('leaderboards', JSON.stringify(leaderboards));
 }
 
-
-
-// This function should be called when the player takes damage
+// This function is called when the player takes damage
 function takeDamage(amount) {
     player.health -= amount;
     player.health = Math.max(player.health, 0); // Ensure health doesn't go below 0
@@ -535,11 +534,13 @@ function takeDamage(amount) {
         handleGameOver();
     }
 }
+
 function updateHealthBar() {
     var health = document.querySelector('#health');
     var healthPercentage = (player.health / 100) * HEALTH_FULL_WIDTH;
     health.style.width = healthPercentage + 'px';
 }
+
 function regenerateHealth() {
     if (player.health < 100) {
         player.health += 0.01; // Regenerate health very slowly
@@ -562,7 +563,6 @@ function increaseScoreWithTime() {
 
 increaseScoreWithTime();
 
-
 function animate() {
     if (isGameOver) {
         return; // Stop the game loop if the game is over
@@ -578,11 +578,14 @@ function animate() {
 
     enemies.forEach((enemy, index) => {
         enemy.update();
-
+        if (enemy.markForDeletion) {
+            enemies.splice(index, 1);
+        }
         function updateScoreDisplay() {
             document.querySelector('#score').innerHTML = score;
             document.querySelector('#finalScore').innerHTML = score;
         }
+
         // Check for collision with helper's attack
         if (helper.isAttacking) {
             const attackBox = {
@@ -626,6 +629,7 @@ function animate() {
             }, 0);
         }
     });
+
     //player movement
     if (keys.d.pressed && lastkeyp === 'd' && player.reachedEdgeRight == false) player.velocity.x = 3
     else if (keys.a.pressed && lastkeyp === 'a' && player.reachedEdgeLeft == false) player.velocity.x = -3
@@ -645,8 +649,9 @@ animate()
 
 //check for key press
 window.addEventListener('keydown', (event) => {
-    switch (event.key) {
+    const key = event.key.toLowerCase(); // Convert key to lower case
 
+    switch (key) {
         case 'a':
             keys.a.pressed = true
             player.attackBox.facing = 'left'
@@ -657,50 +662,50 @@ window.addEventListener('keydown', (event) => {
             player.attackBox.facing = 'right'
             lastkeyp = 'd'
             break
-
         case 's':
             decreaseShieldWidth();
             break
         case 'w':
             if (player.velocity.y == 0) player.velocity.y = -14
             break
-        case 'ArrowLeft':
+        case 'arrowleft':
             keys.left.pressed = true
             helper.attackBox.facing = 'left'
             lastkeyh = 'left'
             break
-        case 'ArrowRight':
+        case 'arrowright':
             keys.right.pressed = true
             helper.attackBox.facing = 'right'
             lastkeyh = 'right'
             break
-        case 'ArrowUp':
+        case 'arrowup':
             keys.up.pressed = true
             break
-        case 'ArrowDown':
+        case 'arrowdown':
             if (!helper.isAttacking) helper.attack()
             break
     }
-})
+});
 
 //check for key releases
 window.addEventListener('keyup', (event) => {
+    const key = event.key.toLowerCase(); // Convert key to lower case
 
-    switch (event.key) {
+    switch (key) {
         case 'a':
             keys.a.pressed = false
             break
         case 'd':
             keys.d.pressed = false
             break
-        case 'ArrowLeft':
+        case 'arrowleft':
             keys.left.pressed = false
             break
-        case 'ArrowRight':
+        case 'arrowright':
             keys.right.pressed = false
             break
-        case 'ArrowUp':
+        case 'arrowup':
             keys.up.pressed = false
             break
     }
-})
+});
