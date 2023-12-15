@@ -515,8 +515,18 @@ function updateLeaderboard(finalScore) {
     // Retrieve the existing leaderboard or initialize a new one
     const leaderboards = JSON.parse(localStorage.getItem('leaderboards')) || [];
 
-    // Add the current game's score to the leaderboard
-    leaderboards.push({ user: currentUser, score: finalScore });
+    // Find the user's existing score, if any
+    let existingUserScore = leaderboards.find(entry => entry.user === currentUser);
+
+    if (existingUserScore) {
+        // Update score if the new score is higher
+        if (finalScore > existingUserScore.score) {
+            existingUserScore.score = finalScore;
+        }
+    } else {
+        // Add new user and score
+        leaderboards.push({ user: currentUser, score: finalScore });
+    }
 
     // Sort the leaderboard by score in descending order
     leaderboards.sort((a, b) => b.score - a.score);
@@ -524,6 +534,7 @@ function updateLeaderboard(finalScore) {
     // Save the updated leaderboard back to localStorage
     localStorage.setItem('leaderboards', JSON.stringify(leaderboards));
 }
+
 
 // This function is called when the player takes damage
 function takeDamage(amount) {
