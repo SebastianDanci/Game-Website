@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function logInOut() {
+    if(!localStorage.getItem("currentUser"))localStorage.setItem("currentUser","")
     if (localStorage.currentUser === "") {
     } else {
         const navButton = document.getElementById('logInOut');

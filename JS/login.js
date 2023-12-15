@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  if(!localStorage.getItem("currentUser"))localStorage.setItem("currentUser","")
   if (localStorage.currentUser === "") {
 
     const logbox = document.querySelector('.logbox');
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem("currentUser", "");
 
     // Regular expression patterns
-    const namePattern = /^[a-zA-Z ]+$/;
+    const namePattern = /^[a-zA-Z]+$/;
     const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     const phonePattern = /^(?:(?:0(?:0|11)[\s-]?|\+)44[\s-]?(?:0[\s-]?)?|0)(?:\d{2}[\s-]?\d{4}[\s-]?\d{4}|\d{3}[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))$/;
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Check each input against its pattern
       if (!validateInput(regName, namePattern)) {
-        alert('Please enter a valid name using only lowercase and uppercase letters.');
+        alert('Please enter a valid name using only lowercase and uppercase letters.\nWhitespaces or any other characters are not allowed');
         event.preventDefault();
       } else if (!validateInput(regEmail, emailPattern)) {
         alert('Please enter a valid email address.');
